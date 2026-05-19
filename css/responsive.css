@@ -1,0 +1,215 @@
+/* ── XL: large monitors (≥1440px) ── */
+@media (min-width: 1440px) {
+  :root {
+    --container-max: 1280px;
+  }
+  .section { padding: 72px 32px; }
+  .section-title h2 { font-size: 36px; }
+  .hero h1 { font-size: 50px; }
+}
+
+/* ── LG: desktop narrow / small laptop (≤1023px) ── */
+@media (max-width: 1023px) {
+  .header-inner { gap: 16px; padding: 0 20px; }
+  nav a { padding: 8px 10px; font-size: 13px; }
+  .topbar a { margin-left: 12px; }
+  .hero-inner { gap: 40px; padding: 48px 20px; }
+  .plans-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .footer-main { gap: 28px; }
+
+  .help-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 20px;
+  }
+}
+
+/* ── MD: tablet (≤767px) ── */
+@media (max-width: 767px) {
+  .topbar .inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+  .topbar a { margin-left: 0; margin-right: 14px; }
+  .topbar .inner > div { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  .header-inner {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 68px;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .logo { font-size: 18px; }
+  .logo-icon { width: 36px; height: 36px; }
+
+  .menu-toggle { display: flex; margin-left: auto; }
+  .header-actions { margin-left: 0; flex-shrink: 0; }
+  .header-actions .btn-outline { display: none; }
+  .header-actions .btn-primary { padding: 10px 16px; font-size: 12px; }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    flex: 1 1 100%;
+    order: 10;
+    width: 100%;
+    gap: 4px;
+    padding: 12px 0 4px;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  header.nav-open nav { display: flex; }
+  nav a {
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 8px;
+  }
+
+  .hero, .hero-bienestar { min-height: auto; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 16px;
+  }
+  .hero h1, .hero-bienestar h1 { font-size: 32px; }
+  .hero p { font-size: 16px; max-width: none; }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn-hero,
+  .hero-ctas .btn-ghost { justify-content: center; text-align: center; }
+
+  .speed-card { display: block; }
+  .speed-num { font-size: 56px; }
+  .speed-card [style*="display:flex"] { flex-wrap: wrap !important; gap: 16px !important; }
+
+  .hero-search { padding: 40px 16px; }
+  .hero-search h1 { font-size: 30px; }
+  .search-bar { max-width: 100%; }
+
+  .section { padding: 48px 16px; }
+  .section-title { margin-bottom: 32px; }
+  .section-title h2 { font-size: 28px; }
+
+  .plans-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+
+  .promo-banner,
+  .coach-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+  }
+  .promo-banner h2 { font-size: 24px; }
+  .promo-banner .btn-hero,
+  .coach-banner .btn-hero {
+    white-space: normal;
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-main { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 20px 16px;
+  }
+  .footer-bottom span { font-size: 12px; line-height: 1.5; }
+
+  .help-layout {
+    grid-template-columns: 1fr;
+    padding: 24px 16px;
+    gap: 28px;
+  }
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    min-width: 0;
+  }
+  .sidebar > * { min-width: 0; }
+  .help-main { min-width: 0; }
+
+  .stat-strip { flex-wrap: wrap; }
+  .stat-item {
+    flex: 1 1 50%;
+    border-bottom: 1px solid var(--gray-mid);
+  }
+  .stat-item:nth-child(2n) { border-right: none; }
+
+  footer { padding-bottom: 100px; }
+}
+
+/* ── XS: mobile (≤480px) ── */
+@media (max-width: 480px) {
+  .topbar { font-size: 11px; }
+  .topbar .inner > span { line-height: 1.4; }
+
+  .header-inner { padding: 10px 12px; }
+  .header-actions { width: 100%; justify-content: stretch; }
+  .header-actions .btn-primary { width: 100%; min-height: 44px; }
+
+  .hero-inner { padding: 32px 12px; gap: 24px; }
+  .hero h1, .hero-bienestar h1 { font-size: 26px; }
+  .hero-search h1 { font-size: 26px; }
+  .btn-hero { width: 100%; text-align: center; min-height: 44px; }
+
+  .speed-num { font-size: 48px; }
+  .speed-unit { font-size: 22px; }
+
+  .search-bar {
+    flex-direction: column;
+    border-radius: 16px;
+  }
+  .search-bar input { padding: 14px 16px; }
+  .search-bar button {
+    width: 100%;
+    padding: 14px;
+    min-height: 44px;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .status-bar {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .status-link {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .art-item a {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .art-title { flex: 1 1 100%; order: 1; }
+  .ai-icon { order: 0; }
+  .art-badge { order: 2; }
+  .art-arr { order: 3; margin-left: auto; }
+
+  .chips { gap: 6px; }
+  .chip { font-size: 11px; padding: 6px 12px; }
+
+  .services-grid { grid-template-columns: 1fr; }
+  .sidebar { grid-template-columns: 1fr; }
+
+  .stat-item {
+    flex: 1 1 100%;
+    border-right: none;
+  }
+
+  .footer-main { grid-template-columns: 1fr; }
+  .footer-brand p { max-width: none; }
+
+  .plan-speed { font-size: 42px; }
+  .plan-price .amount { font-size: 32px; }
+
+  .cat-nav-inner { padding: 0 12px; }
+  .help-layout { padding: 20px 12px; }
+
+  .coach-banner h2 { font-size: 22px; }
+  .promo-banner h2 { font-size: 22px; }
+}
