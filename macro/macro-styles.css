@@ -61,26 +61,32 @@ header{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px r
 .mobile-menu a{display:block;min-height:44px;padding:14px 22px;border-bottom:1px solid #f1f4f7;color:var(--navy2);font-weight:600;line-height:1.3;}
 .mobile-menu a.active{color:var(--azul);font-weight:700;}
 
-/* ===== HERO SLIDER ===== */
+/* ===== HERO SLIDER (como macro.com.ar: banner full + caja blanca a la derecha) ===== */
 .hero{position:relative;overflow:hidden;background:var(--celeste-bg);}
 .hero-track{display:flex;transition:transform .6s ease;}
 .hero-slide{
   min-width:100%;width:100%;position:relative;
-  min-height:clamp(360px,42vw,500px);
+  min-height:clamp(300px,28vw,440px);
+  aspect-ratio:21/7;
+  max-height:480px;
   background-color:var(--celeste-bg);
   background-size:cover;
-  background-position:center center;
+  background-position:left center;
   background-repeat:no-repeat;
   display:flex;align-items:stretch;
 }
-.hero-slide-inner{display:flex;align-items:stretch;width:100%;min-height:inherit;padding-bottom:52px;}
+.hero-slide-inner{
+  display:flex;align-items:stretch;justify-content:flex-end;
+  width:100%;min-height:inherit;padding-bottom:48px;
+}
 .hero-box{
-  flex:0 0 min(46%,520px);max-width:520px;
+  flex:0 0 min(40%,440px);max-width:440px;width:100%;
   display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(28px,4vw,48px) clamp(24px,3vw,40px);
+  padding:clamp(24px,3vw,40px) clamp(20px,2.5vw,36px);
   text-align:left;background:#fff;
-  box-shadow:8px 0 32px rgba(5,53,117,.08);
+  box-shadow:-12px 0 40px rgba(5,53,117,.12);
   z-index:2;
+  margin-left:auto;
 }
 .hero-box h2{font-size:clamp(22px,3vw,34px);line-height:1.15;font-weight:700;margin-bottom:14px;}
 .hero-box p{font-size:clamp(16px,2vw,20px);color:var(--txt);margin-bottom:20px;}
@@ -300,9 +306,14 @@ footer{background:#fff;}
 @media (max-width: 991px) {
   .top-bar,.brand-bar{display:none;}
   .mobile-bar{display:flex;}
-  .hero-slide{min-height:clamp(420px,65vw,560px);background-position:center bottom;}
+  .hero-slide{aspect-ratio:auto;min-height:clamp(380px,55vw,520px);max-height:none;background-position:center center;}
   .hero-slide-inner{flex-direction:column;justify-content:flex-start;padding-bottom:56px;}
-  .hero-box{flex:0 0 auto;max-width:100%;width:100%;padding:28px 20px;text-align:center;box-shadow:0 4px 20px rgba(5,53,117,.1);}
+  .hero-box{
+    flex:0 0 auto;max-width:100%;width:100%;margin-left:0;
+    padding:28px 20px;text-align:center;
+    box-shadow:0 4px 20px rgba(5,53,117,.1);
+    order:1;
+  }
   .hero-arrow{width:36px;height:36px;}
   .hero-arrow.prev{left:8px;}
   .hero-arrow.next{right:8px;}
