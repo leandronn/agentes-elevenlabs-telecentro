@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco Macro</title>
+<link rel="shortcut icon" href="https://www.macro.com.ar/imagen/favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="macro-styles.css">
+</head>
+<body data-page="home">
+
+<!-- ===== HEADER COMPARTIDO (lo inyecta macro-layout.js) ===== -->
+<div id="site-header"></div>
+
+<!-- ============================================================ -->
+<!-- ===============  CONTENIDO DEL MEDIO (HOME)  =============== -->
+<!-- ============================================================ -->
+<main>
+
+  <!-- HERO SLIDER -->
+  <section class="hero">
+    <div class="hero-track" id="heroTrack">
+      <div class="hero-slide" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/img_slider_tc_desktop_1112/desk999999_tc.png');">
+        <div class="hero-box">
+          <h2 style="color:#0039E3">Pedí gratis tu <span style="color:#FF7DCB">Tarjeta</span></h2>
+          <p>Que el límite de tu Tarjeta de crédito no sea lo que te frena.</p>
+          <div class="hero-cta">
+            <a class="cta cta-primario" href="#">Pedí tu tarjeta</a>
+            <a class="cta cta-primario" href="#">Conocé más</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/slider1desktop_abritucuenta_0110/banner_caaa_03.png');">
+        <div class="hero-box">
+          <h2 style="color:#0039E3">Abrí tu <span style="color:#FF7DCB">cuenta</span> en pesos y en dólares</h2>
+          <p style="color:#030303">¡Gratis y 100% online!</p>
+          <div class="hero-cta">
+            <a class="cta cta-primario" href="#">Hacete cliente</a>
+            <a class="cta cta-primario" href="#">Conocé más</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/desk-individuos-final.png');">
+        <div class="hero-box">
+          <h2 style="color:#203ae9">Soñá en <span style="color:#FF8CC5">grande</span>.<br>Pensá en Macro</h2>
+          <div class="hero-cta"><a class="cta cta-primario" href="#">Conocer más</a></div>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/img_slider_ps_desktop_0409/slider_ps_home_portal_999.jpg');">
+        <div class="hero-box">
+          <h2 style="color:#0039E3">Traé tu <span style="color:#FF7DCB">sueldo</span> al banco que sabe lo que valés: Hacelo <span style="color:#FF7DCB">100% Online.</span></h2>
+          <p>En Macro, tu sueldo rinde mucho más!</p>
+          <div class="hero-cta"><a class="cta cta-azul" href="#">Comenzá acá</a></div>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/img_slider_pp_desktop_07.06/ppppppp4555.jpg');">
+        <div class="hero-box">
+          <h2 style="color:#0039E3">Sacá tu Préstamo <span style="color:#FF7DCB">100% Online</span></h2>
+          <p>¡Usalo para lo que quieras!</p>
+          <div class="hero-cta"><a class="cta cta-azul" href="#">Más información</a></div>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/imgdesktop_empresas_onb/home_empresas_01.jpg');">
+        <div class="hero-box">
+          <h2 style="color:#203ae9">Más tiempo para tu negocio, <span style="color:#053575">menos trámites</span></h2>
+          <p style="color:#000">Abrí tu Cuenta Empresa 100% online y 1 año gratis.</p>
+          <div class="hero-cta"><a class="cta cta-primario" href="#">Abrir cuenta</a></div>
+        </div>
+      </div>
+    </div>
+    <button class="hero-arrow prev" id="heroPrev"><img src="https://www.macro.com.ar/imagen/arrow-prev.svg" alt="Anterior"></button>
+    <button class="hero-arrow next" id="heroNext"><img src="https://www.macro.com.ar/imagen/arrow-next.svg" alt="Siguiente"></button>
+    <div class="hero-dots" id="heroDots"></div>
+  </section>
+
+  <!-- ACCESOS RAPIDOS -->
+  <section class="accesos">
+    <div class="container-fluid">
+      <h2>¿Cómo podemos ayudarte hoy?</h2>
+      <div class="acc-wrap">
+        <button class="acc-arrow prev" id="accPrev">‹</button>
+        <button class="acc-arrow next" id="accNext">›</button>
+        <div class="accesos-viewport">
+          <div class="accesos-track" id="accTrack">
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_hacete_cliente_persona/iconos_hacetecliente.svg" alt=""><p>Abrí una<br>cuenta</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_descarg_app_macro/homemacro_appmacro.svg" alt=""><p>Descargá<br>App Macro</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_potenci_tu_sueldo/iconos_sueldos.svg" alt=""><p>Potenciá<br>tu sueldo</p></a>
+            <a class="card-acceso" href="jubilados.html"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_disfrut_tu_jubilacin/homemacro_disfrutajubilacion.svg" alt=""><p>Disfrutá<br>tu jubilación</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_conoc_nuestros_seguros/homemacro_conoceseguros.svg" alt=""><p>Conocé<br>nuestros seguros</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_desbloque_tu_tarjeta_de_dbito/homemacro_desbloqueatd.svg" alt=""><p>Desbloqueá tu<br>Tarjeta de Débito</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_sac_efectivo_sin_tarjeta_de_dbito/homemacro_efectivosintd.svg" alt=""><p>Sacá efectivo<br>sin Tarjeta de Débito</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_adherite_a_eresumen/homemacro_eresumen.svg" alt=""><p>Adherite a<br>E-Resumen</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_cmo_activar_tu_token/homemacro_token.svg" alt=""><p>Activá<br>tu token</p></a>
+            <a class="card-acceso" href="#"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/icon_nuevo_desbloque_tu_tarjeta_de_dbito/homemacro_desbloqueatd.svg" alt=""><p>Seguí el envío<br>de tu tarjeta</p></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CARDS -->
+  <section class="cards4">
+    <div class="container">
+      <div class="cards4-grid">
+        <div class="card4">
+          <div class="card4-content"><h3><strong>Pedí tu tarjeta online y gratis por un año</strong></h3><h6><br>¡Empezá a ahorrar en supermercados, combustible y más!</h6><a class="btn-card" href="#">Pedí tu tarjeta</a></div>
+          <div class="card4-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_bm_card_home_1/tc_228x240.jpg" alt="Tarjeta"></div>
+        </div>
+        <div class="card4">
+          <div class="card4-content"><h3><strong>Abrí una caja de ahorro</strong></h3><h6><br>100% online y gratis. ¡Podés manejar tu cuenta desde WhatsApp!</h6><a class="btn-card" href="#">Abrí tu cuenta</a></div>
+          <div class="card4-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_bm_card_home_2/atc_228x240.jpg" alt="Caja de ahorro"></div>
+        </div>
+        <div class="card4">
+          <div class="card4-content"><h3><strong>Beneficios con MODO</strong></h3><h6><br>Ahorrá hasta 30% en Supermercados pagando con MODO desde la app.</h6><a class="btn-card" href="#">Conocé más</a></div>
+          <div class="card4-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/sitio-cards-con-iphone.jpg" alt="MODO"></div>
+        </div>
+        <div class="card4">
+          <div class="card4-content"><h3><strong>Beneficios Selecta</strong></h3><h6><br>Accedé a beneficios y experiencias únicas para vos ¡Descubrilas!</h6><a class="btn-card" href="#">Conocé más</a></div>
+          <div class="card4-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_bm_card_home_4/selecta_228x240.jpg" alt="Selecta"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER DOLARES -->
+  <section class="banner-simple">
+    <div class="container">
+      <div class="banner-row" style="background:#EFF1F1;">
+        <div class="pic"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_banner_ca_dolar/caaausd9099.png" alt="Caja en dólares"></div>
+        <div class="txt">
+          <strong class="big" style="color:#0039E3">Abrí tu <span style="color:#FF7DCB">Caja de Ahorro Dólares</span> gratis</strong>
+          <p style="color:#343F49">Ahorrá, comprá y vendé ¡Usalos para lo que quieras!</p>
+          <div><a class="cta cta-azul" href="#">Abrir cuenta</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="beneficios">
+    <div class="container">
+      <h2>Beneficios para vos en <label>Buenos Aires</label></h2>
+      <div class="ben-grid">
+        <div class="ben-card">
+          <div class="ben-rubro"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_sup/sup.png" alt="Supermercados"></div>
+          <div class="ben-logo"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_sup/sup.png" alt="Supermercados"></div>
+          <h6>SUPERMERCADOS</h6><h5>Hasta <strong>30%</strong><br>de ahorro</h5>
+          <a class="ben-link" href="#">VER MÁS</a>
+          <div class="ben-cartera"></div>
+        </div>
+        <div class="ben-card">
+          <div class="ben-rubro"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_ind/ind.png" alt="Indumentaria"></div>
+          <div class="ben-logo"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_ind/ind.png" alt="Indumentaria"></div>
+          <h6>INDUMENTARIA</h6><h5>Hasta <strong>30%</strong><br>de ahorro</h5>
+          <a class="ben-link" href="#">VER MÁS</a>
+          <div class="ben-cartera"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/listing-logo-macro-selecta.png" alt="Selecta"></div>
+        </div>
+        <div class="ben-card">
+          <div class="ben-rubro"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_aut/aut.png" alt="Automotor"></div>
+          <div class="ben-logo"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_aut/aut.png" alt="Automotor"></div>
+          <h6>AUTOMOTOR Y COMBUSTIBLE</h6><h5>Hasta <strong>6 cuotas</strong><br>sin interés</h5>
+          <a class="ben-link" href="#">VER MÁS</a>
+          <div class="ben-cartera"></div>
+        </div>
+        <div class="ben-card">
+          <div class="ben-rubro"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_tur/tur.png" alt="Turismo"></div>
+          <div class="ben-logo"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/rubro_tur/tur.png" alt="Turismo"></div>
+          <h6>TURISMO</h6><h5>Hasta <strong>6 cuotas</strong><br>sin interés</h5>
+          <a class="ben-link" href="#">VER MÁS</a>
+          <div class="ben-cartera"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/listing-logo-macro-selecta.png" alt="Selecta"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS VERTICALES -->
+  <section class="cardsV">
+    <div class="container">
+      <div class="cardsV-grid">
+        <div class="cardV">
+          <div class="cardV-content"><h4>Tu campo<br>simple</h4><h6><br>Estamos cerca de tu negocio con la mejor propuesta integral.</h6><a class="btn-blue" href="#">Conocé más</a></div>
+          <div class="cardV-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_card_1_agronegocios/tu_campo_simple.png" alt="Tu campo simple"></div>
+        </div>
+        <div class="cardV">
+          <div class="cardV-content"><h4>Banca Internet<br>Empresas</h4><h6><br>La mejor solución digital para tus negocios.</h6><a class="btn-blue" href="#">Conocé más</a></div>
+          <div class="cardV-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_card_2_banca_internet_empresas/banca_internet.png" alt="Banca Internet Empresas"></div>
+        </div>
+        <div class="cardV">
+          <div class="cardV-content"><h4>Tu Pyme<br>grande</h4><h6><br>Pensá en hacer grande tu negocio, con las mejores soluciones digitales.</h6><a class="btn-blue" href="#">Conocé más</a></div>
+          <div class="cardV-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_comercio_card_1_seguro_integral_de_comercial/tu_pyme_grande.png" alt="Tu Pyme grande"></div>
+        </div>
+        <div class="cardV">
+          <div class="cardV-content"><h4>Tu comercio más digital</h4><h6><br>Potencia tus ventas con nuestras soluciones.</h6><a class="btn-blue" href="#">Conocé más</a></div>
+          <div class="cardV-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_card_4_comercios/tu_comercio_mas_digital.png" alt="Tu comercio más digital"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIPLE BANNER -->
+  <section class="triple">
+    <div class="container">
+      <div class="triple-grid">
+        <div class="tbanner big" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/img_banner_agrupado_grande_nyp/tenemos_la_mejor_solucio_n.png');">
+          <div class="tx"><h4><strong>Tenemos la solución para vos y tu negocio.</strong></h4><p>Mantené el balance entre lo personal y tu actividad comercial.</p><div><a class="cta cta-primario" href="#">Abrir cuenta</a></div></div>
+        </div>
+        <div class="triple-row2">
+          <div class="tbanner" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/img_banner_agrupado_izq_payway/terminal.png');">
+            <div class="tx"><h4><strong>Tu terminal Payway</strong></h4><p>Bonificada 100% por 15 meses, ofrecé cuotas y retiro de efectivo.</p><div><a class="cta cta-primario" href="#">Pedir terminal</a></div></div>
+          </div>
+          <div class="tbanner" style="background-image:url('https://d18sfile8nklfm.cloudfront.net/imagen/img_banner_agrupado_der_qr/qr__4_.png');">
+            <div class="tx"><h4><strong>Usá QR Macro</strong></h4><p>Aceptá pagos con transferencia desde cualquier billetera virtual.</p><div><a class="cta cta-primario" href="#">Obtener QR</a></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER EMPRESAS -->
+  <section class="banner-simple">
+    <div class="container">
+      <div class="banner-row" style="background:#003aec;color:#fff;">
+        <div class="pic"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_banner_horizontal_acompaamos_tu_neg/queremos_acompannar_tu_negocio_2.jpg" alt="Empresas"></div>
+        <div class="txt">
+          <h4>Queremos acompañar a tu negocio</h4>
+          <p>Porque entendemos las necesidades de tu empresa, sin importar su tamaño, somos el banco que siempre te acompaña.</p>
+          <div><a class="cta cta-secundario" href="#">Ir a Empresas</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER SEGURIDAD -->
+  <section class="banner-simple">
+    <div class="container">
+      <div class="banner-row" style="background:#e9f3ff;">
+        <div class="pic"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_banner_seguridad_home/nuevo2seguridad_banner_home380x230.jpg" alt="Seguridad"></div>
+        <div class="txt">
+          <h4 style="color:#0039E3">Tu seguridad es nuestra prioridad</h4>
+          <p style="color:#003057">Las estafas bancarias crecen todos los días, conocé como prevenirlas.</p>
+          <div><a class="cta cta-primario" href="#">Conocé más</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTE -->
+  <section class="art">
+    <div class="art-inner">
+      <div class="art-img"><img src="https://d18sfile8nklfm.cloudfront.net/imagen/img_muestra/banner_muestraarte__1_.png" alt="Muestra de arte"></div>
+      <div class="art-txt">
+        <span class="l1">Edgardo Giménez</span>
+        <span class="l2">La alegría es lo que hace girar el mundo.</span>
+        <p>De lunes a viernes de 10 a 18hs<br>Hasta junio<br>Entrada libre y gratuita<br>Torre Macro - Av. Madero 1172, CABA</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- ============================================================ -->
+<!-- =================  FIN CONTENIDO DEL MEDIO  ================= -->
+<!-- ============================================================ -->
+
+<!-- ===== FOOTER COMPARTIDO (lo inyecta macro-layout.js) ===== -->
+<div id="site-footer"></div>
+
+<script src="macro-layout.js"></script>
+</body>
+</html>
