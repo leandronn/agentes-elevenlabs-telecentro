@@ -113,12 +113,19 @@
   inject("site-footer", footer);
 
   /* ---------- MENU MOBILE ---------- */
+  var mobileMenu = document.getElementById("mobileMenu");
+  function closeMobileMenu() {
+    if (mobileMenu) mobileMenu.classList.remove("open");
+  }
   var hamb = document.getElementById("hambBtn");
-  if (hamb) {
+  if (hamb && mobileMenu) {
     hamb.addEventListener("click", function () {
-      document.getElementById("mobileMenu").classList.toggle("open");
+      mobileMenu.classList.toggle("open");
     });
   }
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 991) closeMobileMenu();
+  });
 
   /* ---------- ACTIVE DEL MENU (al hacer click) ---------- */
   function wireActive(nodeList) {
@@ -128,11 +135,11 @@
         if (a.getAttribute("href") === "#") e.preventDefault();
         links.forEach(function (x) { x.classList.remove("active"); });
         a.classList.add("active");
+        closeMobileMenu();
       });
     });
   }
-  // Solo los ítems de navegación (excluye botones "Para vos" / "Para tu Negocio")
-  wireActive(document.querySelectorAll(".main-nav a:not(.btn-navy):not(.btn-tonal)"));
+  wireActive(document.querySelectorAll(".main-nav a"));
   wireActive(document.querySelectorAll("#mobileMenu > a"));
 
   /* ---------- HERO CAROUSEL (si existe) ---------- */
