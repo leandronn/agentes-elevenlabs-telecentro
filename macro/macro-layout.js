@@ -3,17 +3,23 @@
    Cada página define <body data-page="home|personas|jubilados|ayuda">
    y deja vacíos los contenedores #site-header y #site-footer.
    Los links externos quedan en "#"; la navegación entre páginas
-   locales sí apunta a los .html.
+   locales apuntan bajo /macro/.
    ============================================================ */
 (function () {
+  var BASE = "/macro/";
   var CDN = "https://d18sfile8nklfm.cloudfront.net"; // solo para imágenes
   var WWW = "https://www.macro.com.ar";               // solo para imágenes
 
+  function url(path) {
+    if (!path) return BASE;
+    return BASE + String(path).replace(/^\//, "");
+  }
+
   var NAV = [
-    { label: "Inicio", href: "index.html", key: "home" },
-    { label: "Personas", href: "personas.html", key: "personas" },
-    { label: "Jubilados", href: "jubilados.html", key: "jubilados" },
-    { label: "Ayuda", href: "ayuda.html", key: "ayuda" }
+    { label: "Inicio", href: url(), key: "home" },
+    { label: "Personas", href: url("personas.html"), key: "personas" },
+    { label: "Jubilados", href: url("jubilados.html"), key: "jubilados" },
+    { label: "Ayuda", href: url("ayuda.html"), key: "ayuda" }
   ];
 
   var page = document.body.getAttribute("data-page") || "home";
@@ -30,7 +36,7 @@
     '<header>' +
       '<div class="mobile-bar">' +
         '<button class="hamb" id="hambBtn" aria-label="menu"><span></span><span></span><span></span></button>' +
-        '<a class="logo-min" href="index.html"><img src="' + CDN + '/imagen/macrologoheader2025alternativo/logoheader_macro.svg" alt="Banco Macro"></a>' +
+        '<a class="logo-min" href="' + url() + '"><img src="' + CDN + '/imagen/macrologoheader2025alternativo/logoheader_macro.svg" alt="Banco Macro"></a>' +
         '<a class="turno-round" href="#"><img src="' + WWW + '/imagen/icono_header_calendario/icon_calendario_header.svg" alt="Turnos"></a>' +
       '</div>' +
       '<div class="mobile-menu" id="mobileMenu">' +
@@ -38,7 +44,7 @@
       '</div>' +
       '<div class="top-bar"><div class="container">' +
         '<div class="top-left">' +
-          '<a class="logo-min" href="index.html"><img src="' + CDN + '/imagen/macrologoheader2025alternativo/logoheader_macro.svg" alt="Banco Macro"></a>' +
+          '<a class="logo-min" href="' + url() + '"><img src="' + CDN + '/imagen/macrologoheader2025alternativo/logoheader_macro.svg" alt="Banco Macro"></a>' +
           '<a class="btn-outline" href="#">Para vos</a>' +
           '<a class="btn-outline" href="#">Para tu Negocio</a>' +
         '</div>' +
@@ -55,7 +61,7 @@
         '</div>' +
       '</div></div>' +
       '<div class="brand-bar"><div class="container">' +
-        '<a class="brand-logo" href="index.html"><img src="' + CDN + '/imagen/macrologoheader2025alternativo/logoheader_macro.svg" alt="Macro siempre cerca tuyo"></a>' +
+        '<a class="brand-logo" href="' + url() + '"><img src="' + CDN + '/imagen/macrologoheader2025alternativo/logoheader_macro.svg" alt="Macro siempre cerca tuyo"></a>' +
         '<nav class="main-nav">' + navLinks("") + '</nav>' +
       '</div></div>' +
     '</header>';
@@ -73,7 +79,7 @@
         '</ul></div>' +
       '</div></div>' +
       '<div class="foot-menu"><div class="container"><ul>' +
-        '<li><a href="#">Canales de Atención</a></li>' +
+        '<li><a href="' + url("ayuda.html") + '">Canales de Atención</a></li>' +
         '<li><a href="#">Proveedores del Banco</a></li>' +
         '<li><a href="#"><strong>Libro de quejas online</strong></a></li>' +
         '<li><a href="#"><strong>Botón de Arrepentimiento</strong></a></li>' +
@@ -91,7 +97,7 @@
           '<a href="#">Proconsumer - Seguro de cajero</a>' +
         '</div></div>' +
         '<div><h3>INFORMACIÓN IMPORTANTE</h3><div class="links">' +
-          '<a href="#">Mapa del Sitio</a>' +
+          '<a href="' + url() + '">Mapa del Sitio</a>' +
           '<a href="#">Transparencia</a>' +
           '<a href="#">Comisiones - cargos</a>' +
           '<a href="#">Materiales de exposición obligatoria</a>' +
