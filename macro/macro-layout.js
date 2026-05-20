@@ -9,16 +9,10 @@
   var CDN = "https://d18sfile8nklfm.cloudfront.net"; // solo para imágenes
   var WWW = "https://www.macro.com.ar";               // solo para imágenes
 
-  // Navegación. Las páginas locales tienen href real; el resto, "#".
   var NAV = [
+    { label: "Inicio", href: "index.html", key: "home" },
     { label: "Personas", href: "personas.html", key: "personas" },
     { label: "Jubilados", href: "jubilados.html", key: "jubilados" },
-    { label: "Selecta", href: "#", key: "selecta" },
-    { label: "Empresas", href: "#", key: "empresas" },
-    { label: "Negocios y Profesionales", href: "#", key: "negyprof" },
-    { label: "Agro", href: "#", key: "agro" },
-    { label: "Gobierno", href: "#", key: "gobierno" },
-    { label: "Conocenos", href: "#", key: "conocenos" },
     { label: "Ayuda", href: "ayuda.html", key: "ayuda" }
   ];
 
@@ -41,11 +35,6 @@
       '</div>' +
       '<div class="mobile-menu" id="mobileMenu">' +
         navLinks("") +
-        '<div class="mobile-btns">' +
-          '<a href="#">Para vos</a>' +
-          '<a href="#">Para tu Negocio</a>' +
-          '<a class="pink" href="#">Turnos online</a>' +
-        '</div>' +
       '</div>' +
       '<div class="top-bar"><div class="container">' +
         '<div class="top-left">' +
@@ -67,11 +56,7 @@
       '</div></div>' +
       '<div class="brand-bar"><div class="container">' +
         '<a class="brand-logo" href="index.html"><img src="' + CDN + '/imagen/macrologoheader2025alternativo/logoheader_macro.svg" alt="Macro siempre cerca tuyo"></a>' +
-        '<nav class="main-nav">' +
-          '<a class="btn-navy" href="#">Para vos</a>' +
-          '<a class="btn-tonal" href="#">Para tu Negocio</a>' +
-          navLinks("") +
-        '</nav>' +
+        '<nav class="main-nav">' + navLinks("") + '</nav>' +
       '</div></div>' +
     '</header>';
 
