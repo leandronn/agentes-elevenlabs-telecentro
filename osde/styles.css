@@ -1,0 +1,191 @@
+/* ============================================================
+   OSDE - Clon estático (colores, diseño y UX fieles)
+   Paleta y tipografía tomadas del sitio real osde.com.ar
+   ============================================================ */
+
+:root{
+  --azul:#1226AA;        /* nav, footer, primario */
+  --azul-osc:#0e1f87;
+  --cian:#12CAFF;        /* titulos h2 */
+  --cian2:#26C3FF;       /* titulos h3 */
+  --topbar:#222222;      /* barra superior */
+  --texto:#494A52;       /* texto base */
+  --gris:#f8f8f8;        /* fondos suaves */
+  --gris-bd:#e6e6e6;
+  --blanco:#ffffff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-size:18px;
+  line-height:1.5;
+  color:var(--texto);
+  background:var(--blanco);
+}
+a{color:var(--azul);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;display:block}
+.page-center{max-width:1200px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-weight:700;line-height:1.2}
+h2{color:var(--cian);font-size:36px;font-weight:600}
+h3{color:var(--cian2);font-size:25px}
+
+/* ---------- Barra superior (negra) ---------- */
+.header-top{background:var(--topbar);color:#cfcfcf;font-size:14px}
+.header-top .page-center{display:flex;align-items:center;justify-content:space-between;min-height:42px}
+.header-top ul{list-style:none;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.header-top ul li:first-child{color:#fff;font-weight:700}
+.header-top a{color:#cfcfcf}
+.header-top a:hover{color:#fff;text-decoration:none}
+.search-wrapper{display:flex;align-items:center;background:#3a3a3a;border-radius:18px;padding:4px 12px}
+.search-wrapper input{background:transparent;border:0;color:#fff;outline:none;font-size:13px;width:140px}
+.search-wrapper input::placeholder{color:#bdbdbd}
+.search-wrapper .icon-search{color:#bdbdbd;font-size:13px}
+
+/* ---------- Header principal (logo + nav) ---------- */
+.header-bottom{background:rgba(248,248,248,.96);box-shadow:0 1px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(2px)}
+.header-bottom .page-center{display:flex;align-items:center;gap:24px;min-height:90px}
+.cm-logo a{
+  display:block;width:150px;height:70px;text-indent:-9999px;overflow:hidden;
+  background:url("https://www.osde.com.ar/hubfs/Osde-logo%20ok.png") left center/contain no-repeat;
+}
+.navigation-primary{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:18px;flex-wrap:wrap}
+.menu{list-style:none;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.menu a{color:var(--azul);font-size:16px;font-weight:600;white-space:nowrap}
+.menu a:hover{color:var(--cian);text-decoration:none}
+.link-session a{font-size:13px;color:var(--texto);font-weight:600}
+.btn-login{
+  background:var(--azul);color:#fff;font-weight:700;font-size:14px;
+  padding:10px 22px;border-radius:24px;white-space:nowrap;border:0;cursor:pointer;
+}
+.btn-login:hover{background:var(--azul-osc);text-decoration:none;color:#fff}
+.mobile-trigger{display:none;font-size:26px;color:var(--azul);background:none;border:0;cursor:pointer}
+
+/* ---------- Botones genéricos ---------- */
+.btn{
+  display:inline-block;background:var(--azul);color:#fff;font-weight:700;
+  padding:13px 30px;border-radius:28px;font-size:15px;letter-spacing:.3px;
+  text-transform:uppercase;border:0;cursor:pointer;transition:.2s;
+}
+.btn:hover{background:var(--azul-osc);text-decoration:none;color:#fff}
+.btn-outline{background:transparent;color:var(--azul);border:2px solid var(--azul)}
+.btn-outline:hover{background:var(--azul);color:#fff}
+
+/* ---------- Hero / slider ---------- */
+.hero{position:relative;background:#eef1fb;overflow:hidden}
+.slider{position:relative;width:100%}
+.slide{display:none;width:100%}
+.slide.active{display:block}
+.slide a{display:block;height:100%}
+.slide img{width:100%;height:420px;object-fit:cover;object-position:center;display:block}
+.slider-dots{position:absolute;bottom:16px;left:0;right:0;display:flex;gap:10px;justify-content:center}
+.slider-dots button{width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:rgba(255,255,255,.5);cursor:pointer;padding:0}
+.slider-dots button.active{background:var(--azul)}
+.slider-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(18,38,170,.7);color:#fff;border:0;width:46px;height:46px;border-radius:50%;font-size:22px;cursor:pointer;z-index:5}
+.slider-arrow:hover{background:var(--azul)}
+.slider-arrow.prev{left:18px}
+.slider-arrow.next{right:18px}
+
+/* ---------- Tiles de acceso rápido ---------- */
+.quick-access{background:var(--gris);padding:46px 0}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.tile{
+  background:var(--azul);color:#fff;border-radius:14px;padding:30px 22px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:14px;transition:.2s;min-height:170px;justify-content:center;
+}
+.tile:hover{background:var(--azul-osc);text-decoration:none;color:#fff;transform:translateY(-4px)}
+.tile .ico{font-size:42px;line-height:1}
+.tile span{font-size:19px;font-weight:700}
+
+/* ---------- Secciones de contenido (alternadas) ---------- */
+.feature{padding:60px 0}
+.feature .page-center{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.feature.reverse .feature-text{order:2}
+.feature-text h2{margin-bottom:18px}
+.feature-text p{font-size:19px;margin-bottom:26px;color:var(--texto)}
+.feature-img img{border-radius:14px;width:100%}
+.feature.alt{background:var(--gris)}
+.sub-actions{margin-top:14px}
+.sub-actions h3{font-size:20px;margin-bottom:10px;color:var(--cian2)}
+
+/* ---------- Footer ---------- */
+.footer{background:var(--azul);color:#fff;padding:54px 0 22px}
+.footer-logo img{width:150px;margin-bottom:30px}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:30px}
+.footer-cols h4{font-size:15px;letter-spacing:.6px;margin-bottom:16px;font-weight:800;text-transform:uppercase}
+.footer-cols ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.footer-cols a{color:#fff;font-size:14px;opacity:.9}
+.footer-cols a:hover{opacity:1;text-decoration:underline}
+.footer-legal{font-size:12px;color:rgba(255,255,255,.8);margin-top:22px;line-height:1.6}
+.footer-legal a{color:#fff;text-decoration:underline}
+.footer-seals{display:flex;gap:16px;align-items:center;margin-top:20px;flex-wrap:wrap}
+.footer-seals img{height:48px;width:auto;background:#fff;border-radius:6px;padding:5px 8px}
+.footer-seals .seal-wide{height:40px;padding:6px 10px}
+
+/* ---------- Salud y Bienestar ---------- */
+.syb-hero{background:var(--gris);padding:40px 0 10px}
+.featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding:34px 0}
+.fcard{background:#fff;border:1px solid var(--gris-bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.fcard:hover{box-shadow:0 10px 26px rgba(0,0,0,.12);transform:translateY(-4px)}
+.fcard img{width:100%;height:200px;object-fit:cover}
+.fcard .fbody{padding:20px 20px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.fcard h3{font-size:20px;color:var(--azul);line-height:1.25}
+.fcard p{font-size:15px;color:var(--texto)}
+.fcard .leer{margin-top:auto;color:var(--cian);font-weight:700;font-size:15px}
+
+.cat-section{padding:30px 0}
+.cat-section h2{text-align:center;margin-bottom:30px}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.cat-block{background:#fff;border:1px solid var(--gris-bd);border-radius:12px;padding:20px}
+.cat-block h4{color:var(--azul);font-size:18px;margin-bottom:14px;border-bottom:2px solid var(--cian);padding-bottom:8px}
+.cat-block ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cat-block a{font-size:14px;color:var(--texto)}
+.cat-block a:hover{color:var(--azul)}
+.cat-block .vermas{display:inline-block;margin-top:12px;color:var(--cian);font-weight:700;font-size:14px}
+
+.feed{padding:40px 0}
+.feed h2{margin-bottom:26px}
+.acard{border-bottom:1px solid var(--gris-bd);padding:22px 0;display:flex;flex-direction:column;gap:8px}
+.acard h3{font-size:22px;color:var(--azul)}
+.acard .tag{display:inline-block;background:#eaf8ff;color:var(--azul);font-size:12px;font-weight:700;padding:4px 12px;border-radius:14px;width:fit-content;text-transform:uppercase}
+.acard p{font-size:16px}
+.share{display:flex;gap:12px;color:#9aa}
+.share a{color:#9aa;font-size:16px}
+
+/* ---------- Asociarme ---------- */
+.plan-hero{background:linear-gradient(120deg,#1226AA,#2750e0);color:#fff;padding:80px 0}
+.plan-hero .page-center{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.plan-hero h1{font-size:46px;margin-bottom:18px}
+.plan-hero p{font-size:21px;margin-bottom:30px;opacity:.95}
+.plan-hero .btn{background:#fff;color:var(--azul)}
+.plan-hero .btn:hover{background:#eaf2ff}
+.plan-hero-img{background:rgba(255,255,255,.12);border-radius:18px;min-height:280px;display:flex;align-items:center;justify-content:center;font-size:120px}
+.plan-cta{padding:70px 0;text-align:center;background:var(--gris)}
+.plan-cta h2{margin-bottom:24px}
+
+/* ---------- Responsive ---------- */
+@media(max-width:900px){
+  h2{font-size:28px}
+  .header-top ul{gap:12px;font-size:12px}
+  .search-wrapper{display:none}
+  .mobile-trigger{display:block}
+  .navigation-primary{position:absolute;top:90px;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;padding:14px 20px;box-shadow:0 8px 18px rgba(0,0,0,.12);display:none}
+  .navigation-primary.open{display:flex}
+  .menu{flex-direction:column;align-items:stretch;gap:14px;width:100%}
+  .feature .page-center{grid-template-columns:1fr;gap:26px}
+  .feature.reverse .feature-text{order:0}
+  .quick-grid{grid-template-columns:repeat(2,1fr)}
+  .featured-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-cols{grid-template-columns:1fr}
+  .plan-hero .page-center{grid-template-columns:1fr}
+  .plan-hero h1{font-size:34px}
+  .slide img{height:300px}
+}
+@media(max-width:540px){
+  .quick-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:1fr}
+  .slide img{height:220px}
+}
