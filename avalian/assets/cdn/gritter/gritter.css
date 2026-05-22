@@ -1,0 +1,202 @@
+#gritter-notice-wrapper {
+    position: fixed;
+    top:20px;
+    right: 20px;
+    width: 301px;
+    z-index: 10001;
+}
+
+#gritter-notice-wrapper.top-left {
+    left: 20px;
+    right: auto;
+}
+
+#gritter-notice-wrapper.bottom-right {
+    top: auto;
+    left: auto;
+    bottom: 20px;
+    right: 20px;
+}
+
+#gritter-notice-wrapper.bottom-left {
+    top: auto;
+    right: auto;
+    bottom: 20px;
+    left: 20px;
+}
+
+#gritter-notice-wrapper.top-center{
+    position: fixed;
+    left: 33%;
+    top: 5%;
+    transform: translate(-50%, -50%);
+}
+
+#gritter-notice-wrapper.bottom-center{
+    position: fixed;
+    left: 50%;
+    top: 77% !important;
+    transform: translate(-50%, -50%);
+}
+
+.gritter-item-wrapper {
+    position: relative;
+    margin: 0 0 10px 0;
+    background: url('images/ie-spacer.gif');
+    border-radius: 6px;
+}
+
+.gritter-top {
+    background: url(images/gritter.png) no-repeat left -30px;
+    height: 10px;
+}
+
+.hover .gritter-top {
+    background-position: right -30px;
+}
+
+.gritter-bottom {
+    background: url(images/gritter.png) no-repeat left bottom;
+    height: 8px;
+    margin: 0;
+}
+
+.hover .gritter-bottom {
+    background-position: bottom right;
+}
+
+.gritter-item {
+    display: block;
+    background: url(images/gritter.png) no-repeat left -40px;
+    color: #eee;
+    padding: 2px 11px 8px 11px;
+    font-size: 12px;
+    font-family: verdana;
+}
+
+.hover .gritter-item {
+    background-position: right -40px;
+}
+
+.gritter-item p {
+    padding: 0;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.gritter-title {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 0 7px 0;
+    display: block;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.gritter-image {
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+
+.gritter-with-image, .gritter-without-image {
+    padding: 0;
+}
+
+.gritter-with-image {
+    width: 220px;
+    float: right;
+}
+
+.gritter-light .gritter-item, .gritter-light .gritter-bottom, .gritter-light .gritter-top, .gritter-light .gritter-title {
+    text-shadow: none;
+}
+
+.gritter-item-wrapper{
+    background-image: none;
+    box-shadow: 0 2px 10px rgba(50, 50, 50, 0.5);
+    background: rgba(50, 50, 50, 0.92);
+}
+
+.gritter-item-wrapper.gritter-info{
+    background: rgba(49, 81, 133, 0.92);
+}
+
+.gritter-item-wrapper.gritter-error{
+    background: rgba(153, 40, 18, 0.92);
+}
+
+.gritter-item-wrapper.gritter-success{
+    background: rgba(89, 131, 75, 0.92);
+}
+
+.gritter-item-wrapper.gritter-warning{
+    background: rgba(190, 112, 31, 0.92);
+}
+
+.gritter-item-wrapper.gritter-light{
+    background: rgba(245, 245, 245, 0.95);
+    border: 1px solid #BBB;
+}
+
+.gritter-item-wrapper.gritter-light.gritter-info{
+    background: rgba(232, 242, 255, 0.95)
+}
+
+.gritter-item-wrapper.gritter-light.gritter-info .gritter-item{
+    color: #4a577d;
+}
+
+.gritter-item-wrapper.gritter-light.gritter-error{
+    background: rgba(255, 235, 235, 0.95);
+}
+
+.gritter-item-wrapper.gritter-light.gritter-error .gritter-item{
+    color: #894a38;
+}
+
+.gritter-item-wrapper.gritter-light.gritter-success{
+    background: rgba(239, 250, 227, 0.95);
+}
+
+.gritter-item-wrapper.gritter-light.gritter-success .gritter-item{
+    color: #416131;
+}
+
+.gritter-item-wrapper.gritter-light.gritter-warning{
+    background: rgba(252, 248, 227, 0.95);
+}
+
+.gritter-item-wrapper.gritter-light.gritter-warning .gritter-item{
+    color: #946446;
+}
+
+.gritter-item p{
+    line-height: 1.8;
+}
+
+.gritter-top,.gritter-bottom,.gritter-item{
+    background-image: none;
+}
+
+.gritter-close{
+    display: none;
+    float: right;
+    top: 1px;
+    position: absolute;
+    right: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.gritter-title{
+    text-shadow: none;
+}
+
+.gritter-light .gritter-item,.gritter-light .gritter-bottom,.gritter-light .gritter-top,.gritter-light{
+    background-image: none;
+    color: #444;
+}
+
+.gritter-light .gritter-title{
+    text-shadow: none;
+}
