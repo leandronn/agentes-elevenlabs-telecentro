@@ -7,3 +7,6 @@ i{
     font-style: italic;
 }
 
+
+/* Hide Avalian WhatsApp floating bubble */
+.ava-whatsapp-bubble { display: none !important; }

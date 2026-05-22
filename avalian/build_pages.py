@@ -238,6 +238,24 @@ ELEVENLABS_AGENTS = {
 WIDGET_SCRIPT = '<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>'
 
 
+def strip_floating_fabs(html: str) -> str:
+    """Remove Avalian WhatsApp FAB (Ava bubble) from cloned pages."""
+    html = re.sub(r"\s*<link[^>]*ava-whatsapp\.css[^>]*>\s*", "\n", html, flags=re.I)
+    html = re.sub(
+        r"\s*<a\s[^>]*class=\"ava-whatsapp-bubble\"[^>]*>.*?</a>\s*",
+        "\n",
+        html,
+        flags=re.DOTALL | re.I,
+    )
+    html = re.sub(
+        r"\s*<div>\s*<a class=\"btn\" href=\"#[^\"]*\"[^>]*>\s*<i class=\"icon icon-whatsapp\"></i>\s*</a>\s*</div>\s*",
+        "\n",
+        html,
+        flags=re.I,
+    )
+    return html
+
+
 def inject_elevenlabs(html: str, dest: str) -> str:
     agent = ELEVENLABS_AGENTS.get(dest)
     if not agent:
@@ -264,6 +282,7 @@ def main():
             content = raw.decode("latin-1")
         out = process_html(content, dest)
         out = out.replace('var BASE_URL = "https://avalian.com/";', 'var BASE_URL = "/avalian/";')
+        out = strip_floating_fabs(out)
         out = inject_elevenlabs(out, dest)
         (WORK / dest).write_text(out, encoding="utf-8")
         print(f"Wrote {dest} ({len(out)} bytes)")
