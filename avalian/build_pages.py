@@ -22,11 +22,15 @@ INTERNAL_PATHS = {
     "/cartilla": "cartilla.html",
     "cartilla.html": "cartilla.html",
     "/cartilla.html": "cartilla.html",
+    "contactos": "contactos.html",
+    "/contactos": "contactos.html",
+    "contactos.html": "contactos.html",
+    "/contactos.html": "contactos.html",
 }
 
 
 def normalize_internal_href(path: str) -> str | None:
-    """Return local path if href targets one of our three pages."""
+    """Return local path if href targets one of our local pages."""
     if not path:
         return None
     p = path.strip()
@@ -225,11 +229,31 @@ def fix_css_files():
             css.write_text(text, encoding="utf-8")
 
 
+ELEVENLABS_AGENTS = {
+    "planes.html": "agent_5201ks63qhmpf0k8hy4zx9ezz5pq",
+    "cartilla.html": "agent_2401ks672t8merfsxdd49vpqgpbm",
+    "contactos.html": "agent_2701ks63hmscevstjapdfmyr5391",
+}
+
+WIDGET_SCRIPT = '<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>'
+
+
+def inject_elevenlabs(html: str, dest: str) -> str:
+    agent = ELEVENLABS_AGENTS.get(dest)
+    if not agent:
+        return html
+    snippet = f'<elevenlabs-convai agent-id="{agent}"></elevenlabs-convai>\n{WIDGET_SCRIPT}\n'
+    if f'agent-id="{agent}"' in html:
+        return html
+    return html.replace("</body>", snippet + "</body>", 1)
+
+
 def main():
     pages = [
         ("/tmp/avalian-home.html", "index.html"),
         ("/tmp/avalian-planes.html", "planes.html"),
         ("/tmp/avalian-cartilla.html", "cartilla.html"),
+        ("/tmp/avalian-contactos.html", "contactos.html"),
     ]
     fix_css_files()
     for src, dest in pages:
@@ -240,6 +264,7 @@ def main():
             content = raw.decode("latin-1")
         out = process_html(content, dest)
         out = out.replace('var BASE_URL = "https://avalian.com/";', 'var BASE_URL = "/avalian/";')
+        out = inject_elevenlabs(out, dest)
         (WORK / dest).write_text(out, encoding="utf-8")
         print(f"Wrote {dest} ({len(out)} bytes)")
 
