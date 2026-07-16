@@ -186,7 +186,7 @@ header {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 28px 28px 24px;
+  padding: 28px 28px 18px;
   display: flex; flex-direction: column; gap: 12px;
   max-width: 780px; margin: 0 auto;
   box-shadow: 0 4px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
@@ -210,26 +210,28 @@ header {
 
 .widget-embed {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  height: 176px;
+  margin: 0 auto;
   overflow: visible;
 }
 
 .widget-embed elevenlabs-convai {
   position: relative !important;
-  inset: auto !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
+  display: block !important;
   width: 100% !important;
-  max-width: 420px;
-  height: auto !important;
-  min-height: 0 !important;
+  max-width: 360px !important;
+  height: 176px !important;
+  min-height: 176px !important;
+  margin: 0 auto !important;
+  inset: unset !important;
+  top: unset !important;
+  right: unset !important;
+  bottom: unset !important;
+  left: unset !important;
   z-index: 1 !important;
-  display: block;
-  margin: 0 auto;
+  overflow: visible;
 }
 
 elevenlabs-convai { width: 100%; }
@@ -590,5 +592,6 @@ footer {
 </footer>
 
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<script src="/banca/widget-align.js"></script>
 </body>
 </html>

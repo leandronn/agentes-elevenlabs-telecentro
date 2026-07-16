@@ -191,7 +191,7 @@ h1 .green { color: var(--accent); }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 28px 20px 24px;
+  padding: 28px 24px 18px;
   text-align: center;
   max-width: 680px;
   margin: 0 auto;
@@ -210,31 +210,33 @@ h1 .green { color: var(--accent); }
   font-size: 0.92rem;
   color: var(--muted);
   line-height: 1.6;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .widget-embed {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  height: 176px;
+  margin: 0 auto;
   overflow: visible;
 }
 
 .widget-embed elevenlabs-convai {
   position: relative !important;
-  inset: auto !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
+  display: block !important;
   width: 100% !important;
-  max-width: 420px;
-  height: auto !important;
-  min-height: 0 !important;
+  max-width: 360px !important;
+  height: 176px !important;
+  min-height: 176px !important;
+  margin: 0 auto !important;
+  inset: unset !important;
+  top: unset !important;
+  right: unset !important;
+  bottom: unset !important;
+  left: unset !important;
   z-index: 1 !important;
-  display: block;
-  margin: 0 auto;
+  overflow: visible;
 }
 
 /* ── SECTION WRAPPER ── */
@@ -664,6 +666,7 @@ footer .sep {
 
 <!-- ElevenLabs widget script -->
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<script src="/banca/widget-align.js"></script>
 
 </body>
 </html>

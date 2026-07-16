@@ -254,7 +254,7 @@
     .widget-card {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 28px 16px 24px;
+      padding: 28px 16px 18px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -273,26 +273,28 @@
     }
     .widget-embed {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;
+      max-width: 360px;
+      height: 176px;
+      margin: 0 auto;
       overflow: visible;
     }
 
     .widget-embed elevenlabs-convai {
       position: relative !important;
-      inset: auto !important;
-      top: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      left: auto !important;
+      display: block !important;
       width: 100% !important;
-      max-width: 420px;
-      height: auto !important;
-      min-height: 0 !important;
+      max-width: 360px !important;
+      height: 176px !important;
+      min-height: 176px !important;
+      margin: 0 auto !important;
+      inset: unset !important;
+      top: unset !important;
+      right: unset !important;
+      bottom: unset !important;
+      left: unset !important;
       z-index: 1 !important;
-      display: block;
-      margin: 0 auto;
+      overflow: visible;
     }
 
     /* ─── STEPS ─── */
@@ -650,6 +652,7 @@
   </footer>
 
   <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+  <script src="/banca/widget-align.js"></script>
 
 </body>
 </html>
