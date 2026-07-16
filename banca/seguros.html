@@ -247,29 +247,41 @@
 
     /* ─── WIDGET SECTION ─── */
     .widget-section {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      padding: 32px 16px;
     }
-    .widget-card {
+
+    .inner {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 28px 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      width: 100%;
     }
+
+    .widget-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px 18px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
     .widget-title {
       font-family: 'Bricolage Grotesque', sans-serif;
       font-weight: 800;
-      font-size: 1.35rem;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
       letter-spacing: -0.02em;
+      margin-bottom: 10px;
       color: var(--text);
     }
+
     .widget-sub {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--muted);
-      margin-bottom: 12px;
+      line-height: 1.6;
+      margin-bottom: 14px;
     }
     .widget-embed {
       position: relative;
@@ -466,7 +478,8 @@
 
       .hero-grid { padding: 48px 32px; }
       section { padding: 56px 32px; }
-      .widget-card { padding: 56px 32px; }
+      .widget-card { padding: 40px 48px; }
+      .widget-section { padding: 48px 32px; }
 
       .steps-grid { grid-template-columns: repeat(2, 1fr); }
       .stats-row  { grid-template-columns: repeat(2, 1fr); }
@@ -481,7 +494,7 @@
         gap: 64px;
       }
       section { padding: 64px 48px; }
-      .widget-card { padding: 64px 48px; }
+      .widget-section { padding: 72px 56px; }
 
       .steps-grid { grid-template-columns: repeat(3, 1fr); }
       .stats-row  { grid-template-columns: repeat(3, 1fr); }
@@ -537,16 +550,22 @@
 
     </div><!-- /hero-grid -->
 
+    <div class="divider" aria-hidden="true"></div>
+
     <!-- WIDGET ELEVENLABS -->
-    <div class="widget-section">
-      <div class="widget-card">
-        <div class="widget-title">Hablá con el agente ahora</div>
-        <p class="widget-sub">Demo en vivo — el agente está disponible para una conversación de prueba.</p>
-        <div class="widget-embed">
-          <elevenlabs-convai agent-id="agent_2701kxecqh2gebs9fkqrfprp0yed"></elevenlabs-convai>
+    <section class="widget-section" aria-label="Demo en vivo">
+      <div class="inner">
+        <div class="widget-card">
+          <div class="widget-title">Hablá con el agente ahora</div>
+          <p class="widget-sub">Demo en vivo — el agente está disponible para una conversación de prueba.</p>
+          <div class="widget-embed">
+            <elevenlabs-convai agent-id="agent_2701kxecqh2gebs9fkqrfprp0yed"></elevenlabs-convai>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
 
     <!-- 6 PASOS -->
     <section>
