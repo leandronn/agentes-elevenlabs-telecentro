@@ -210,27 +210,27 @@ header {
 
 .widget-embed {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 132px;
-  padding: 8px 0 4px;
+  width: 100%;
+  max-width: 420px;
+  height: 150px;
+  margin: 0 auto;
   overflow: visible;
 }
 
 .widget-embed elevenlabs-convai {
   position: relative !important;
-  inset: auto !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
+  display: block !important;
   width: 100% !important;
-  max-width: 420px;
-  min-height: 120px !important;
+  max-width: 420px !important;
+  height: 150px !important;
+  min-height: 150px !important;
+  margin: 0 auto !important;
+  inset: unset !important;
+  top: unset !important;
+  right: unset !important;
+  bottom: unset !important;
+  left: unset !important;
   z-index: 1 !important;
-  display: block;
-  margin: 0 auto;
   overflow: visible;
 }
 
@@ -592,5 +592,29 @@ footer {
 </footer>
 
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<script>
+(function () {
+  function alignWidget() {
+    var widget = document.querySelector('.widget-embed elevenlabs-convai');
+    if (!widget || !widget.shadowRoot) return false;
+    var overlay = widget.shadowRoot.querySelector('div[class*="overlay"]');
+    if (!overlay) return false;
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    return true;
+  }
+  function watch() {
+    if (alignWidget()) return;
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries += 1;
+      if (alignWidget() || tries > 40) clearInterval(timer);
+    }, 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch);
+  else watch();
+  window.addEventListener('load', watch);
+})();
+</script>
 </body>
 </html>
