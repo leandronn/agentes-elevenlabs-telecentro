@@ -1,6 +1,14 @@
 (function () {
-  var MIN_HEIGHT = 176;
+  var COMPACT_HEIGHT = 112;
   var MAX_HEIGHT = 480;
+
+  function getSheet(widget) {
+    if (!widget.shadowRoot) return null;
+    return (
+      widget.shadowRoot.querySelector('div[class*="rounded-sheet"]') ||
+      widget.shadowRoot.querySelector('div.sheet')
+    );
+  }
 
   function alignWidgetOnce(widget) {
     if (!widget.shadowRoot || widget.dataset.aligned === 'true') return false;
@@ -14,10 +22,7 @@
     overlay.style.setProperty('width', '100%', 'important');
     overlay.style.setProperty('height', '100%', 'important');
 
-    var sheet =
-      widget.shadowRoot.querySelector('div[class*="rounded-sheet"]') ||
-      widget.shadowRoot.querySelector('div.sheet');
-
+    var sheet = getSheet(widget);
     if (sheet) {
       sheet.style.setProperty('margin-left', 'auto', 'important');
       sheet.style.setProperty('margin-right', 'auto', 'important');
@@ -27,16 +32,20 @@
     return true;
   }
 
-  function measureNeededHeight(widget) {
-    if (!widget.shadowRoot) return MIN_HEIGHT;
+  function measureCompactHeight(widget) {
+    var sheet = getSheet(widget);
+    if (!sheet) return COMPACT_HEIGHT;
+
+    var measured = Math.ceil(sheet.getBoundingClientRect().height) + 12;
+    return Math.min(Math.max(measured, 96), 140);
+  }
+
+  function measureActiveHeight(widget) {
+    if (!widget.shadowRoot) return COMPACT_HEIGHT;
 
     var embed = widget.closest('.widget-embed');
-    var overlay = widget.shadowRoot.querySelector('div[class*="overlay"]');
-    var sheet =
-      widget.shadowRoot.querySelector('div[class*="rounded-sheet"]') ||
-      widget.shadowRoot.querySelector('div.sheet');
-
-    if (!embed || !overlay) return MIN_HEIGHT;
+    var sheet = getSheet(widget);
+    if (!embed || !sheet) return COMPACT_HEIGHT;
 
     var previousEmbedHeight = embed.style.height;
     var previousWidgetHeight = widget.style.height;
@@ -45,15 +54,12 @@
     widget.style.setProperty('height', MAX_HEIGHT + 'px', 'important');
     widget.style.setProperty('min-height', MAX_HEIGHT + 'px', 'important');
 
-    var measured = MIN_HEIGHT;
-
-    if (sheet) {
-      measured = Math.max(measured, Math.ceil(sheet.getBoundingClientRect().height) + 48);
-      measured = Math.max(measured, sheet.scrollHeight + 40);
-    }
-
-    measured = Math.max(measured, Math.ceil(overlay.scrollHeight + 24));
-    measured = Math.min(Math.max(measured, MIN_HEIGHT), MAX_HEIGHT);
+    var measured = Math.max(
+      COMPACT_HEIGHT,
+      Math.ceil(sheet.getBoundingClientRect().height) + 32,
+      sheet.scrollHeight + 24
+    );
+    measured = Math.min(measured, MAX_HEIGHT);
 
     embed.style.height = previousEmbedHeight;
     widget.style.height = previousWidgetHeight;
@@ -74,8 +80,17 @@
     widget.style.setProperty('min-height', key + 'px', 'important');
   }
 
-  function syncHeight(widget) {
-    setHeight(widget, measureNeededHeight(widget));
+  function isActive(widget) {
+    return widget.dataset.conversationActive === 'true';
+  }
+
+  function setCompact(widget) {
+    widget.dataset.conversationActive = 'false';
+    setHeight(widget, measureCompactHeight(widget));
+  }
+
+  function syncActiveHeight(widget) {
+    setHeight(widget, measureActiveHeight(widget));
   }
 
   function watchSheetSize(widget) {
@@ -84,16 +99,7 @@
     var tries = 0;
     var timer = window.setInterval(function () {
       tries += 1;
-      if (!widget.shadowRoot) {
-        if (tries > 50) window.clearInterval(timer);
-        return;
-      }
-
-      var sheet =
-        widget.shadowRoot.querySelector('div[class*="rounded-sheet"]') ||
-        widget.shadowRoot.querySelector('div.sheet');
-
-      if (!sheet) {
+      if (!getSheet(widget)) {
         if (tries > 50) window.clearInterval(timer);
         return;
       }
@@ -104,21 +110,22 @@
       if (typeof ResizeObserver === 'function') {
         var resizeTimer = null;
         new ResizeObserver(function () {
+          if (!isActive(widget)) return;
           if (resizeTimer) window.clearTimeout(resizeTimer);
           resizeTimer = window.setTimeout(function () {
-            syncHeight(widget);
+            syncActiveHeight(widget);
           }, 120);
-        }).observe(sheet);
+        }).observe(getSheet(widget));
       }
 
-      syncHeight(widget);
+      setCompact(widget);
     }, 200);
   }
 
-  function scheduleSync(widget) {
-    window.setTimeout(function () { syncHeight(widget); }, 120);
-    window.setTimeout(function () { syncHeight(widget); }, 500);
-    window.setTimeout(function () { syncHeight(widget); }, 1200);
+  function scheduleActiveSync(widget) {
+    window.setTimeout(function () { syncActiveHeight(widget); }, 120);
+    window.setTimeout(function () { syncActiveHeight(widget); }, 500);
+    window.setTimeout(function () { syncActiveHeight(widget); }, 1200);
   }
 
   function bind(widget) {
@@ -128,22 +135,24 @@
     var readyTimer = window.setInterval(function () {
       if (!alignWidgetOnce(widget)) return;
       window.clearInterval(readyTimer);
-      setHeight(widget, MIN_HEIGHT);
+      setCompact(widget);
       watchSheetSize(widget);
     }, 200);
 
     widget.addEventListener('conversationStarted', function () {
-      scheduleSync(widget);
+      widget.dataset.conversationActive = 'true';
+      scheduleActiveSync(widget);
     });
 
     widget.addEventListener('conversationEnded', function () {
       window.setTimeout(function () {
-        syncHeight(widget);
+        setCompact(widget);
       }, 300);
     });
 
     widget.addEventListener('click', function () {
-      scheduleSync(widget);
+      widget.dataset.conversationActive = 'true';
+      scheduleActiveSync(widget);
     }, true);
   }
 
