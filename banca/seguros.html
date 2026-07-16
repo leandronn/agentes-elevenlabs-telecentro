@@ -254,7 +254,7 @@
     .widget-card {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 28px 16px 24px;
+      padding: 32px 16px 28px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -269,13 +269,15 @@
     .widget-sub {
       font-size: 0.9rem;
       color: var(--muted);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
     .widget-embed {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 132px;
+      padding: 8px 0 4px;
       overflow: visible;
     }
 
@@ -288,11 +290,11 @@
       left: auto !important;
       width: 100% !important;
       max-width: 420px;
-      height: auto !important;
-      min-height: 0 !important;
+      min-height: 120px !important;
       z-index: 1 !important;
       display: block;
       margin: 0 auto;
+      overflow: visible;
     }
 
     /* ─── STEPS ─── */
