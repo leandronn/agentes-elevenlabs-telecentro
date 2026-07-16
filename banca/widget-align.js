@@ -1,14 +1,6 @@
 (function () {
-  var COMPACT_HEIGHT = 112;
-  var MAX_HEIGHT = 480;
-
-  function getSheet(widget) {
-    if (!widget.shadowRoot) return null;
-    return (
-      widget.shadowRoot.querySelector('div[class*="rounded-sheet"]') ||
-      widget.shadowRoot.querySelector('div.sheet')
-    );
-  }
+  var COMPACT_HEIGHT = 176;
+  var ACTIVE_HEIGHT = 380;
 
   function alignWidgetOnce(widget) {
     if (!widget.shadowRoot || widget.dataset.aligned === 'true') return false;
@@ -22,7 +14,10 @@
     overlay.style.setProperty('width', '100%', 'important');
     overlay.style.setProperty('height', '100%', 'important');
 
-    var sheet = getSheet(widget);
+    var sheet =
+      widget.shadowRoot.querySelector('div[class*="rounded-sheet"]') ||
+      widget.shadowRoot.querySelector('div.sheet');
+
     if (sheet) {
       sheet.style.setProperty('margin-left', 'auto', 'important');
       sheet.style.setProperty('margin-right', 'auto', 'important');
@@ -30,41 +25,6 @@
 
     widget.dataset.aligned = 'true';
     return true;
-  }
-
-  function measureCompactHeight(widget) {
-    var sheet = getSheet(widget);
-    if (!sheet) return COMPACT_HEIGHT;
-
-    var measured = Math.ceil(sheet.getBoundingClientRect().height) + 12;
-    return Math.min(Math.max(measured, 96), 140);
-  }
-
-  function measureActiveHeight(widget) {
-    if (!widget.shadowRoot) return COMPACT_HEIGHT;
-
-    var embed = widget.closest('.widget-embed');
-    var sheet = getSheet(widget);
-    if (!embed || !sheet) return COMPACT_HEIGHT;
-
-    var previousEmbedHeight = embed.style.height;
-    var previousWidgetHeight = widget.style.height;
-
-    embed.style.height = MAX_HEIGHT + 'px';
-    widget.style.setProperty('height', MAX_HEIGHT + 'px', 'important');
-    widget.style.setProperty('min-height', MAX_HEIGHT + 'px', 'important');
-
-    var measured = Math.max(
-      COMPACT_HEIGHT,
-      Math.ceil(sheet.getBoundingClientRect().height) + 32,
-      sheet.scrollHeight + 24
-    );
-    measured = Math.min(measured, MAX_HEIGHT);
-
-    embed.style.height = previousEmbedHeight;
-    widget.style.height = previousWidgetHeight;
-
-    return measured;
   }
 
   function setHeight(widget, height) {
@@ -80,80 +40,35 @@
     widget.style.setProperty('min-height', key + 'px', 'important');
   }
 
-  function isActive(widget) {
-    return widget.dataset.conversationActive === 'true';
-  }
-
-  function setCompact(widget) {
-    widget.dataset.conversationActive = 'false';
-    setHeight(widget, measureCompactHeight(widget));
-  }
-
-  function syncActiveHeight(widget) {
-    setHeight(widget, measureActiveHeight(widget));
-  }
-
-  function watchSheetSize(widget) {
-    if (widget.dataset.resizeObserved === 'true') return;
-
+  function waitForWidgetReady(widget, callback) {
     var tries = 0;
-    var timer = window.setInterval(function () {
+    var timer = setInterval(function () {
       tries += 1;
-      if (!getSheet(widget)) {
-        if (tries > 50) window.clearInterval(timer);
+      if (alignWidgetOnce(widget)) {
+        clearInterval(timer);
+        setHeight(widget, COMPACT_HEIGHT);
+        callback();
         return;
       }
-
-      window.clearInterval(timer);
-      widget.dataset.resizeObserved = 'true';
-
-      if (typeof ResizeObserver === 'function') {
-        var resizeTimer = null;
-        new ResizeObserver(function () {
-          if (!isActive(widget)) return;
-          if (resizeTimer) window.clearTimeout(resizeTimer);
-          resizeTimer = window.setTimeout(function () {
-            syncActiveHeight(widget);
-          }, 120);
-        }).observe(getSheet(widget));
-      }
-
-      setCompact(widget);
+      if (tries > 50) clearInterval(timer);
     }, 200);
-  }
-
-  function scheduleActiveSync(widget) {
-    window.setTimeout(function () { syncActiveHeight(widget); }, 120);
-    window.setTimeout(function () { syncActiveHeight(widget); }, 500);
-    window.setTimeout(function () { syncActiveHeight(widget); }, 1200);
   }
 
   function bind(widget) {
     if (!widget || widget.dataset.alignBound === 'true') return;
     widget.dataset.alignBound = 'true';
 
-    var readyTimer = window.setInterval(function () {
-      if (!alignWidgetOnce(widget)) return;
-      window.clearInterval(readyTimer);
-      setCompact(widget);
-      watchSheetSize(widget);
-    }, 200);
+    waitForWidgetReady(widget, function () {});
 
     widget.addEventListener('conversationStarted', function () {
-      widget.dataset.conversationActive = 'true';
-      scheduleActiveSync(widget);
+      window.setTimeout(function () {
+        setHeight(widget, ACTIVE_HEIGHT);
+      }, 500);
     });
 
     widget.addEventListener('conversationEnded', function () {
-      window.setTimeout(function () {
-        setCompact(widget);
-      }, 300);
+      setHeight(widget, COMPACT_HEIGHT);
     });
-
-    widget.addEventListener('click', function () {
-      widget.dataset.conversationActive = 'true';
-      scheduleActiveSync(widget);
-    }, true);
   }
 
   function init() {
