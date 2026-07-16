@@ -210,35 +210,7 @@ h1 .green { color: var(--accent); }
   font-size: 0.92rem;
   color: var(--muted);
   line-height: 1.6;
-  margin-bottom: 14px;
-}
-
-.widget-embed {
-  position: relative;
-  width: 100%;
-  max-width: 360px;
-  min-height: 176px;
-  height: 176px;
-  margin: 0 auto;
-  overflow: visible;
-  transition: height 0.2s ease;
-}
-
-.widget-embed elevenlabs-convai {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  max-width: 360px !important;
-  height: 176px !important;
-  min-height: 176px !important;
-  margin: 0 auto !important;
-  inset: unset !important;
-  top: unset !important;
-  right: unset !important;
-  bottom: unset !important;
-  left: unset !important;
-  z-index: 1 !important;
-  overflow: visible;
+  margin-bottom: 0;
 }
 
 /* ── SECTION WRAPPER ── */
@@ -541,13 +513,7 @@ footer .sep {
     <div class="inner">
       <div class="widget-card">
         <div class="widget-title">Hablá con el agente ahora</div>
-        <p class="widget-sub">Demo en vivo — el agente está disponible para una conversación de prueba.</p>
-        <div class="widget-embed">
-          <elevenlabs-convai
-            agent-id="agent_5901kt7debrpfgnae4w5nr2bzf0s"
-            dynamic-variables='{"name":"Juan","full_name":"Juan Pérez","document":"12345678","customer_id":"CL8563"}'
-          ></elevenlabs-convai>
-        </div>
+        <p class="widget-sub">Usá el botón flotante en la esquina inferior derecha para iniciar una conversación de prueba.</p>
       </div>
     </div>
   </section>
@@ -669,9 +635,12 @@ footer .sep {
   No confirmar pagos sin canal oficial
 </footer>
 
-<!-- ElevenLabs widget script -->
+<!-- ElevenLabs widget (FAB default) -->
+<elevenlabs-convai
+  agent-id="agent_5901kt7debrpfgnae4w5nr2bzf0s"
+  dynamic-variables='{"name":"Juan","full_name":"Juan Pérez","document":"12345678","customer_id":"CL8563"}'
+></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-<script src="/banca/widget-align.js"></script>
 
 </body>
 </html>

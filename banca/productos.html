@@ -208,36 +208,6 @@ header {
   height: 1px; background: var(--border);
 }
 
-.widget-embed {
-  position: relative;
-  width: 100%;
-  max-width: 360px;
-  min-height: 176px;
-  height: 176px;
-  margin: 0 auto;
-  overflow: visible;
-  transition: height 0.2s ease;
-}
-
-.widget-embed elevenlabs-convai {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-  max-width: 360px !important;
-  height: 176px !important;
-  min-height: 176px !important;
-  margin: 0 auto !important;
-  inset: unset !important;
-  top: unset !important;
-  right: unset !important;
-  bottom: unset !important;
-  left: unset !important;
-  z-index: 1 !important;
-  overflow: visible;
-}
-
-elevenlabs-convai { width: 100%; }
-
 /* ── STEPS SECTION ── */
 .steps-section {
   position: relative; z-index: 1;
@@ -491,15 +461,9 @@ footer {
     <div class="widget-card">
       <div class="widget-header">
         <h2 class="widget-title">Hablá con el agente ahora</h2>
-        <p class="widget-sub">Demo en vivo — el agente está disponible para una conversación de prueba.</p>
+        <p class="widget-sub">Usá el botón flotante en la esquina inferior derecha para iniciar una conversación de prueba.</p>
       </div>
       <div class="widget-divider" aria-hidden="true"></div>
-      <div class="widget-embed">
-        <elevenlabs-convai
-          agent-id="agent_7601kxeppy1pf47vh97fq0fcw6dz"
-          dynamic-variables='{"name":"Juan","full_name":"Juan Pérez","document":"12345678","customer_id":"CL8563"}'
-        ></elevenlabs-convai>
-      </div>
     </div>
   </section>
 
@@ -596,7 +560,11 @@ footer {
   Datial + ElevenLabs &nbsp;·&nbsp; Moneda: dólares estadounidenses &nbsp;·&nbsp; No confirmar contratación sin canal oficial
 </footer>
 
+<!-- ElevenLabs widget (FAB default) -->
+<elevenlabs-convai
+  agent-id="agent_7601kxeppy1pf47vh97fq0fcw6dz"
+  dynamic-variables='{"name":"Juan","full_name":"Juan Pérez","document":"12345678","customer_id":"CL8563"}'
+></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-<script src="/banca/widget-align.js"></script>
 </body>
 </html>
