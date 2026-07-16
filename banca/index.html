@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IA Conversacional para Banca, Finanzas y Seguros — Datial + ElevenLabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #06111a;
+  --bg-card:  #0b1c28;
+  --border:   rgba(255,255,255,0.07);
+  --accent:   #00e5a0;
+  --accent2:  #00bfff;
+  --accent3:  #c084fc;
+  --text:     #eef2f7;
+  --muted:    #7a8fa3;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* BG ambient glows */
+.bg-glow {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 10%, rgba(0,229,160,0.055) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 45% at 90% 80%, rgba(0,191,255,0.045) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 35% at 55% 50%, rgba(192,132,252,0.025) 0%, transparent 70%);
+}
+
+/* ── HEADER ── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(6,17,26,0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  flex-shrink: 0;
+}
+
+.logo-datial {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.3rem; font-weight: 800; color: var(--text);
+  letter-spacing: -0.3px;
+}
+.logo-datial em { color: var(--accent); font-style: normal; }
+
+.logo-eleven {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem; font-weight: 600; color: var(--muted);
+  letter-spacing: 0.2px;
+}
+.logo-eleven b { color: var(--text); font-weight: 700; }
+
+/* ── MAIN ── */
+.main-wrap { flex: 1; position: relative; z-index: 5; }
+
+/* ── HERO ── */
+.hero {
+  max-width: 1180px; margin: 0 auto;
+  padding: 72px 48px 52px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+.hero h1 .w { color: var(--text); }
+.hero h1 .g { color: var(--accent); }
+.hero h1 .c { color: var(--accent2); }
+
+.hero p {
+  font-size: 1.05rem; color: var(--muted);
+  max-width: 520px; margin: 0 auto 48px;
+  line-height: 1.7;
+}
+
+.section-label {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 36px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.section-label::before,
+.section-label::after {
+  content: '';
+  display: block; width: 40px; height: 1px;
+  background: var(--border);
+}
+
+/* ── CARDS GRID ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 1180px; margin: 0 auto;
+  padding: 0 16px 48px;
+  position: relative; z-index: 5;
+}
+
+@media (min-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 40px 72px;
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cards-grid { padding: 0 48px 80px; gap: 24px; }
+}
+
+/* ── AGENT CARD ── */
+.agent-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 24px 22px 22px;
+  display: flex; flex-direction: column;
+  gap: 0;
+  text-decoration: none; color: inherit;
+  position: relative; overflow: hidden;
+  transition: border-color .28s ease, transform .28s ease, box-shadow .28s ease;
+  cursor: pointer;
+}
+
+/* Per-card accent glow on hover */
+.agent-card::after {
+  content: '';
+  position: absolute; inset: 0; border-radius: 22px;
+  opacity: 0; transition: opacity .35s ease;
+  pointer-events: none;
+}
+.card-green::after  { background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(0,229,160,0.09) 0%, transparent 70%); }
+.card-cyan::after   { background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(0,191,255,0.09) 0%, transparent 70%); }
+.card-violet::after { background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(192,132,252,0.09) 0%, transparent 70%); }
+
+.agent-card:hover::after { opacity: 1; }
+.card-green:hover  { border-color: rgba(0,229,160,0.3);   transform: translateY(-6px); box-shadow: 0 32px 72px rgba(0,0,0,.6), 0 0 40px rgba(0,229,160,0.06); }
+.card-cyan:hover   { border-color: rgba(0,191,255,0.3);   transform: translateY(-6px); box-shadow: 0 32px 72px rgba(0,0,0,.6), 0 0 40px rgba(0,191,255,0.06); }
+.card-violet:hover { border-color: rgba(192,132,252,0.3); transform: translateY(-6px); box-shadow: 0 32px 72px rgba(0,0,0,.6), 0 0 40px rgba(192,132,252,0.06); }
+
+/* ── CARD HEADLINE: number + name ── */
+.card-headline {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(2.2rem, 3.5vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+.card-headline .num  { color: var(--text); }
+.card-headline .name-green  { color: var(--accent); }
+.card-headline .name-cyan   { color: var(--accent2); }
+.card-headline .name-violet { color: var(--accent3); }
+
+/* ── CARD TAG ── */
+.card-tag {
+  display: inline-block;
+  padding: 4px 13px;
+  border-radius: 999px;
+  font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+.card-tag.tag-green  { border: 1px solid rgba(0,229,160,0.25);   background: rgba(0,229,160,0.07);   color: var(--accent); }
+.card-tag.tag-cyan   { border: 1px solid rgba(0,191,255,0.25);   background: rgba(0,191,255,0.07);   color: var(--accent2); }
+.card-tag.tag-violet { border: 1px solid rgba(192,132,252,0.25); background: rgba(192,132,252,0.07); color: var(--accent3); }
+
+/* ── CARD DESCRIPTION ── */
+.card-desc {
+  font-size: 0.88rem; color: var(--muted);
+  line-height: 1.68; margin-bottom: 20px;
+}
+
+/* ── CARD VISUAL: icon + bot badge ── */
+.card-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin: 4px 0 22px;
+}
+
+.cat-icon {
+  width: 64px; height: 64px; flex-shrink: 0;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.cat-icon.icon-green  { background: rgba(0,229,160,0.1);   border: 1px solid rgba(0,229,160,0.2); }
+.cat-icon.icon-cyan   { background: rgba(0,191,255,0.1);   border: 1px solid rgba(0,191,255,0.2); }
+.cat-icon.icon-violet { background: rgba(192,132,252,0.1); border: 1px solid rgba(192,132,252,0.2); }
+
+.cat-icon svg { width: 28px; height: 28px; }
+
+/* ── BOT BADGE (agente IA) ── */
+.bot-badge {
+  width: 92px; height: 92px; flex-shrink: 0;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.bot-badge.bot-green  { background: radial-gradient(circle, rgba(0,229,160,0.16) 0%, rgba(0,229,160,0.02) 68%, transparent 78%); border: 1px solid rgba(0,229,160,0.28); }
+.bot-badge.bot-cyan   { background: radial-gradient(circle, rgba(0,191,255,0.16) 0%, rgba(0,191,255,0.02) 68%, transparent 78%); border: 1px solid rgba(0,191,255,0.28); }
+.bot-badge.bot-violet { background: radial-gradient(circle, rgba(192,132,252,0.16) 0%, rgba(192,132,252,0.02) 68%, transparent 78%); border: 1px solid rgba(192,132,252,0.28); }
+.bot-badge svg { width: 44px; height: 44px; }
+
+/* ── CARD BULLETS ── */
+.card-bullets {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 9px;
+  margin-bottom: 22px;
+}
+.card-bullets li {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 0.875rem; color: var(--text);
+  line-height: 1.4;
+}
+.card-bullets li .check { flex-shrink: 0; }
+
+/* ── VER MÁS ── */
+.card-link {
+  font-size: 0.88rem; font-weight: 600;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: auto;
+  padding-top: 4px;
+  transition: gap .2s ease;
+}
+.card-link:hover { gap: 10px; }
+.card-link.link-green  { color: var(--accent); }
+.card-link.link-cyan   { color: var(--accent2); }
+.card-link.link-violet { color: var(--accent3); }
+
+/* ── FOOTER ── */
+footer {
+  position: sticky; bottom: 0; z-index: 100;
+  border-top: 1px solid var(--border);
+  padding: 15px 48px;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  background: rgba(6,17,26,0.93);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  flex-shrink: 0;
+}
+.ft-logo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1rem; font-weight: 800; color: var(--text);
+}
+.ft-logo em { color: var(--accent); font-style: normal; }
+.ft-sep { color: var(--muted); font-size: 0.9rem; }
+.ft-11 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem; font-weight: 600; color: var(--muted);
+}
+.ft-11 b { color: var(--text); }
+
+/* ── RESPONSIVE OVERRIDES ── */
+@media (max-width: 899px) {
+  header { padding: 12px 16px; }
+  footer { padding: 12px 16px; }
+  .hero { padding: 40px 16px 32px; }
+  .hero h1 { font-size: clamp(2rem, 7.5vw, 3rem); letter-spacing: -0.8px; }
+  .hero p { font-size: 0.95rem; margin-bottom: 36px; }
+  .card-headline { font-size: clamp(2rem, 8vw, 2.5rem); }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="logo-datial"><em>D</em>atial</div>
+  <div class="logo-eleven"><b>||</b>ElevenLabs</div>
+</header>
+
+<div class="main-wrap">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <h1>
+      <span class="w">IA Conversacional para </span><br>
+      <span class="g">Banca</span><span class="w">, </span><span class="c">Finanzas</span><span class="w"> y </span><span class="g">Seguros</span>
+    </h1>
+    <p>Agentes de voz con IA para transformar atención, ventas, cobranzas, retención y soporte.</p>
+    <div class="section-label">Conocé nuestros agentes</div>
+  </section>
+
+  <!-- ── CARDS GRID ── -->
+  <div class="cards-grid">
+
+    <!-- ══════════════════════════════════
+         CARD 1 — COBRANZAS (verde)
+    ══════════════════════════════════ -->
+    <a class="agent-card card-green" href="./cobranzas.html">
+
+      <!-- Headline -->
+      <div class="card-headline">
+        <span class="num">1. </span><span class="name-green">Cobranzas</span>
+      </div>
+
+      <!-- Tag -->
+      <span class="card-tag tag-green">Cobranzas</span>
+
+      <!-- Desc -->
+      <p class="card-desc">Gestiona la cobranza de deudas, negocia acuerdos, ofrece planes de pago y mejora la recuperación.</p>
+
+      <!-- Visual: icon + robot -->
+      <div class="card-visual">
+        <div class="cat-icon icon-green">
+          <!-- Signo $ -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+        </div>
+        <div class="bot-badge bot-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8V4H8"/>
+            <rect width="16" height="12" x="4" y="8" rx="2"/>
+            <path d="M2 14h2"/>
+            <path d="M20 14h2"/>
+            <path d="M15 13v2"/>
+            <path d="M9 13v2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Bullets -->
+      <ul class="card-bullets">
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Gestión de deudas
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Negociación de acuerdos
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Planes de pago personalizados
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Mejora de recuperación
+        </li>
+      </ul>
+
+      <!-- Ver más -->
+      <span class="card-link link-green">Ver más →</span>
+
+    </a>
+
+    <!-- ══════════════════════════════════
+         CARD 2 — PRODUCTOS (cyan)
+    ══════════════════════════════════ -->
+    <a class="agent-card card-cyan" href="./productos.html">
+
+      <!-- Headline -->
+      <div class="card-headline">
+        <span class="num">2. </span><span class="name-cyan">Productos</span>
+      </div>
+
+      <!-- Tag -->
+      <span class="card-tag tag-cyan">Productos</span>
+
+      <!-- Desc -->
+      <p class="card-desc">Informa y asesora sobre tarjetas de crédito, préstamos y traer tu sueldo. Responde dudas y guía al cliente.</p>
+
+      <!-- Visual: icon + robot -->
+      <div class="card-visual">
+        <div class="cat-icon icon-cyan">
+          <!-- Tarjeta de crédito -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="3"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+            <line x1="5" y1="15" x2="9" y2="15"/>
+          </svg>
+        </div>
+        <div class="bot-badge bot-cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8V4H8"/>
+            <rect width="16" height="12" x="4" y="8" rx="2"/>
+            <path d="M2 14h2"/>
+            <path d="M20 14h2"/>
+            <path d="M15 13v2"/>
+            <path d="M9 13v2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Bullets -->
+      <ul class="card-bullets">
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Tarjetas de crédito
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Préstamos
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Traer tu sueldo
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Asesoramiento y guía al cliente
+        </li>
+      </ul>
+
+      <!-- Ver más -->
+      <span class="card-link link-cyan">Ver más →</span>
+
+    </a>
+
+    <!-- ══════════════════════════════════
+         CARD 3 — SEGUROS (violeta)
+    ══════════════════════════════════ -->
+    <a class="agent-card card-violet" href="./seguros.html">
+
+      <!-- Headline -->
+      <div class="card-headline">
+        <span class="num">3. </span><span class="name-violet">Seguros</span>
+      </div>
+
+      <!-- Tag -->
+      <span class="card-tag tag-violet">Venta de Seguros</span>
+
+      <!-- Desc -->
+      <p class="card-desc">Protección de tarjetas y cuentas, cancelación de deudas (Seguro de Vida) y Protección de Ingresos.</p>
+
+      <!-- Visual: icon + robot -->
+      <div class="card-visual">
+        <div class="cat-icon icon-violet">
+          <!-- Escudo con check -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <div class="bot-badge bot-violet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8V4H8"/>
+            <rect width="16" height="12" x="4" y="8" rx="2"/>
+            <path d="M2 14h2"/>
+            <path d="M20 14h2"/>
+            <path d="M15 13v2"/>
+            <path d="M9 13v2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Bullets -->
+      <ul class="card-bullets">
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Protección de tarjetas y cuentas
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Cancelación de deudas (Seguro de Vida)
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Protección de Ingresos
+        </li>
+      </ul>
+
+      <!-- Ver más -->
+      <span class="card-link link-violet">Ver más →</span>
+
+    </a>
+
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="ft-logo"><em>D</em>atial</span>
+  <span class="ft-sep">+</span>
+  <span class="ft-11"><b>||</b>ElevenLabs</span>
+</footer>
+
+</body>
+</html>

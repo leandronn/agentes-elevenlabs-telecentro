@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agente de Seguros · Datial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #06111a;
+      --surface:  #0b1c28;
+      --border:   rgba(255,255,255,0.07);
+      --accent:   #c084fc;
+      --text:     #eef2f7;
+      --muted:    #7a8fa3;
+      --accent-dim: rgba(192,132,252,0.10);
+      --accent-mid: rgba(192,132,252,0.22);
+      --accent-glow: rgba(192,132,252,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      top: -300px;
+      left: -300px;
+      background: radial-gradient(circle, rgba(192,132,252,0.055) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: rgba(6,17,26,0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-mid);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+    .logo-text {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--accent-mid);
+      background: var(--accent-dim);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-btn:hover {
+      background: rgba(192,132,252,0.16);
+      border-color: rgba(192,132,252,0.38);
+    }
+    .back-btn svg { flex-shrink: 0; }
+
+    .eleven-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── MAIN ─── */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── HERO ─── */
+    .hero-grid {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 32px;
+      padding: 40px 16px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 6vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .hero-title .violet { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 28px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse-anim 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-anim {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(192,132,252,0.55); }
+      50%       { opacity: 0.75; transform: scale(1.2); box-shadow: 0 0 0 5px rgba(192,132,252,0); }
+    }
+
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .bot-badge {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle, rgba(192,132,252,0.16) 0%, rgba(192,132,252,0.02) 68%, transparent 78%);
+      border: 1px solid rgba(192,132,252,0.28);
+    }
+    .bot-badge svg { width: 68px; height: 68px; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 40px 16px; }
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1.5px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.65rem, 3vw, 2.1rem);
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 36px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── WIDGET SECTION ─── */
+    .widget-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .widget-card {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .widget-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .widget-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .widget-embed {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    /* ─── STEPS ─── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid rgba(192,132,252,0.45);
+      border-radius: 14px;
+      padding: 24px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: border-left-color 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .step-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 0%, rgba(192,132,252,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .step-card:hover {
+      border-left-color: var(--accent);
+      border-color: rgba(255,255,255,0.11);
+      transform: translateY(-2px);
+    }
+
+    .step-num {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      opacity: 0.88;
+    }
+    .step-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .step-desc {
+      font-size: 0.865rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── CHIPS ─── */
+    .chips-section {
+      background: rgba(11,28,40,0.55);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(192,132,252,0.08);
+      border: 1px solid rgba(192,132,252,0.22);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.855rem;
+      font-weight: 500;
+      color: var(--accent);
+      transition: background 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .chip:hover {
+      background: rgba(192,132,252,0.14);
+      border-color: rgba(192,132,252,0.4);
+    }
+    .chip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    /* ─── STATS ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stats-row .stat:last-child {
+      grid-column: span 2;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(192,132,252,0.18));
+    }
+    .stat:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
+    .stat-value {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 2.6rem;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-top: 4px;
+    }
+    .stat-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: sticky;
+      bottom: 0;
+      z-index: 100;
+      padding: 14px 16px;
+      background: rgba(6,17,26,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer strong { color: var(--accent); font-weight: 600; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (min-width: 768px) {
+      header { padding: 16px 48px; }
+      footer  { padding: 16px 48px; }
+
+      .hero-grid { padding: 48px 32px; }
+      section { padding: 56px 32px; }
+      .widget-card { padding: 56px 32px; }
+
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-row  { grid-template-columns: repeat(2, 1fr); }
+      .stats-row .stat:last-child { grid-column: span 2; }
+    }
+
+    @media (min-width: 1100px) {
+      .hero-grid {
+        flex-direction: row;
+        align-items: center;
+        padding: 64px 48px;
+        gap: 64px;
+      }
+      section { padding: 64px 48px; }
+      .widget-card { padding: 64px 48px; }
+
+      .steps-grid { grid-template-columns: repeat(3, 1fr); }
+      .stats-row  { grid-template-columns: repeat(3, 1fr); }
+      .stats-row .stat:last-child { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <a href="./index.html" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver
+    </a>
+
+    <a href="./index.html" class="header-logo">
+      <div class="logo-mark">D</div>
+      <span class="logo-text">Datial</span>
+    </a>
+
+    <span class="eleven-label">||ElevenLabs</span>
+  </header>
+
+  <!-- ═══ MAIN ═══ -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero-grid">
+
+      <!-- contenido -->
+      <div class="hero-content">
+        <div class="hero-label">Agente de Voz · Seguros</div>
+        <h1 class="hero-title">Agente de <span class="violet">Seguros</span></h1>
+        <p class="hero-sub">IA conversacional que ofrece y explica seguros asociados a productos bancarios: protección de tarjetas, cancelación de deudas y cobertura de ingresos.</p>
+      </div>
+
+      <!-- visual -->
+      <div class="hero-visual">
+        <div class="bot-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8V4H8"/>
+            <rect width="16" height="12" x="4" y="8" rx="2"/>
+            <path d="M2 14h2"/>
+            <path d="M20 14h2"/>
+            <path d="M15 13v2"/>
+            <path d="M9 13v2"/>
+          </svg>
+        </div>
+      </div>
+
+    </div><!-- /hero-grid -->
+
+    <!-- WIDGET ELEVENLABS -->
+    <div class="widget-section">
+      <div class="widget-card">
+        <div class="widget-title">Hablá con el agente ahora</div>
+        <p class="widget-sub">Demo en vivo — el agente está disponible para una conversación de prueba.</p>
+        <div class="widget-embed">
+          <elevenlabs-convai agent-id="agent_2701kxecqh2gebs9fkqrfprp0yed"></elevenlabs-convai>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 PASOS -->
+    <section>
+      <div class="section-inner">
+        <div class="section-label">Flujo de conversación</div>
+        <h2 class="section-title">¿Cómo funciona el agente?</h2>
+        <div class="steps-grid">
+
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-title">Inicio de contacto</div>
+            <p class="step-desc">El agente se presenta como Banco Horizonte, confirma si habla con el titular y no menciona el seguro hasta validar la identidad.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-title">Permiso para continuar</div>
+            <p class="step-desc">Solicita un minuto para presentar la propuesta. Si el cliente acepta, continúa; si no puede hablar, agradece y finaliza la llamada.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-title">Campaña asignada</div>
+            <p class="step-desc">Lee la variable {{campaign}} y deriva automáticamente al subagente de Protección de tarjetas y cuentas sin ofrecer un menú de opciones.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <div class="step-title">Oferta comercial</div>
+            <p class="step-desc">Presenta brevemente la cobertura contra uso indebido de tarjetas y cuentas, explica el beneficio principal y comunica el valor mensual únicamente en dólares.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">05</div>
+            <div class="step-title">Dudas y objeciones</div>
+            <p class="step-desc">Responde utilizando únicamente la base de conocimiento del producto, aclara coberturas y condiciones, sin prometer aprobaciones ni confirmar contrataciones.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">06</div>
+            <div class="step-title">Intención y cierre</div>
+            <p class="step-desc">Consulta si desea avanzar con la solicitud, registra el interés comercial, explica el siguiente paso del proceso y finaliza únicamente después de recibir la respuesta del cliente.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CASOS DE USO FRECUENTES -->
+    <section class="chips-section">
+      <div class="section-inner">
+        <div class="section-label">Casos de uso</div>
+        <h2 class="section-title">Situaciones frecuentes</h2>
+        <div class="chips-wrap">
+          <span class="chip"><span class="chip-dot"></span>Uso indebido de tarjetas</span>
+          <span class="chip"><span class="chip-dot"></span>Transferencias fraudulentas</span>
+          <span class="chip"><span class="chip-dot"></span>Phishing y robo de credenciales</span>
+          <span class="chip"><span class="chip-dot"></span>Precio y cobertura</span>
+          <span class="chip"><span class="chip-dot"></span>Objeciones frecuentes</span>
+          <span class="chip"><span class="chip-dot"></span>Seguridad y datos personales</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- STATS -->
+    <section>
+      <div class="section-inner">
+        <div class="section-label">Resultados</div>
+        <h2 class="section-title">Impacto comprobado</h2>
+        <div class="stats-row">
+
+          <div class="stat">
+            <div class="stat-value">2x</div>
+            <div class="stat-label">Más ventas de seguros</div>
+            <p class="stat-desc">vs canal humano tradicional</p>
+          </div>
+
+          <div class="stat">
+            <div class="stat-value">90 seg</div>
+            <div class="stat-label">Presentación del producto</div>
+            <p class="stat-desc">Clara y sin confusión</p>
+          </div>
+
+          <div class="stat">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Coberturas disponibles</div>
+            <p class="stat-desc">Seguros en una sola conversación</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <strong>Datial</strong> + ElevenLabs &nbsp;·&nbsp; Las coberturas están sujetas a los términos y condiciones de cada póliza
+  </footer>
+
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+</body>
+</html>
