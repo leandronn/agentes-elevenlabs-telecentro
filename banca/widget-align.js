@@ -1,9 +1,19 @@
 (function () {
-  var MIN_HEIGHT = 176;
-  var MAX_HEIGHT = 520;
+  var COMPACT_HEIGHT = 176;
+  var ACTIVE_HEIGHT = 380;
+
+  function isActiveState(widget) {
+    if (!widget.shadowRoot) return false;
+    return !!(
+      widget.shadowRoot.querySelector('div.sheet.flex') ||
+      widget.shadowRoot.querySelector('div[class*="pt-20"]') ||
+      widget.shadowRoot.querySelector('button[aria-label="End"]') ||
+      widget.shadowRoot.querySelector('button[aria-label="Hang up"]')
+    );
+  }
 
   function alignWidget(widget) {
-    if (!widget || !widget.shadowRoot) return false;
+    if (!widget.shadowRoot) return false;
 
     var overlay = widget.shadowRoot.querySelector('div[class*="overlay"]');
     if (!overlay) return false;
@@ -26,41 +36,11 @@
     return true;
   }
 
-  function measureWidgetHeight(widget, embed) {
-    var overlay = widget.shadowRoot.querySelector('div[class*="overlay"]');
-    if (!overlay) return MIN_HEIGHT;
-
-    var previousEmbedHeight = embed.style.height;
-    var previousWidgetHeight = widget.style.height;
-
-    embed.style.height = MAX_HEIGHT + 'px';
-    widget.style.setProperty('height', MAX_HEIGHT + 'px', 'important');
-    widget.style.setProperty('min-height', MAX_HEIGHT + 'px', 'important');
-
-    var measured = MIN_HEIGHT;
-    var nodes = [overlay].concat(Array.from(overlay.querySelectorAll('div, button')));
-
-    nodes.forEach(function (node) {
-      var rect = node.getBoundingClientRect();
-      if (rect.height < 8) return;
-      measured = Math.max(measured, Math.ceil(rect.bottom - overlay.getBoundingClientRect().top) + 20);
-      measured = Math.max(measured, node.scrollHeight + 20);
-    });
-
-    measured = Math.max(measured, Math.ceil(overlay.scrollHeight + 20));
-    measured = Math.min(Math.max(measured, MIN_HEIGHT), MAX_HEIGHT);
-
-    embed.style.height = previousEmbedHeight;
-    widget.style.height = previousWidgetHeight;
-
-    return measured;
-  }
-
   function resizeWidget(widget) {
     var embed = widget.closest('.widget-embed');
-    if (!embed || !widget.shadowRoot) return false;
+    if (!embed) return false;
 
-    var height = measureWidgetHeight(widget, embed);
+    var height = isActiveState(widget) ? ACTIVE_HEIGHT : COMPACT_HEIGHT;
 
     embed.style.height = height + 'px';
     widget.style.setProperty('height', height + 'px', 'important');
@@ -70,41 +50,41 @@
   }
 
   function syncWidget(widget) {
-    if (!alignWidget(widget)) return false;
-    return resizeWidget(widget);
-  }
-
-  function observeShadow(widget, run) {
-    if (!widget.shadowRoot || widget.dataset.shadowObserved === 'true') return;
-    widget.dataset.shadowObserved = 'true';
-
-    new MutationObserver(run).observe(widget.shadowRoot, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      characterData: true
-    });
+    if (!widget.shadowRoot) return;
+    alignWidget(widget);
+    resizeWidget(widget);
   }
 
   function bind(widget) {
-    if (!widget) return;
+    if (!widget || widget.dataset.alignBound === 'true') return;
+    widget.dataset.alignBound = 'true';
 
+    var scheduled = false;
     var run = function () {
-      if (!widget.shadowRoot) return;
-      observeShadow(widget, run);
-      syncWidget(widget);
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(function () {
+        scheduled = false;
+        syncWidget(widget);
+      });
     };
 
     run();
 
-    if (widget.dataset.alignBound === 'true') return;
-    widget.dataset.alignBound = 'true';
-
     new MutationObserver(run).observe(widget, {
       childList: true,
-      subtree: true,
-      attributes: true
+      subtree: true
     });
+
+    var shadowTimer = setInterval(function () {
+      if (!widget.shadowRoot) return;
+      clearInterval(shadowTimer);
+      new MutationObserver(run).observe(widget.shadowRoot, {
+        childList: true,
+        subtree: true
+      });
+      run();
+    }, 100);
 
     widget.addEventListener('conversationStarted', run);
     widget.addEventListener('conversationEnded', run);
@@ -121,12 +101,12 @@
   }
 
   window.addEventListener('load', init);
-  window.addEventListener('resize', init);
 
   var tries = 0;
   var timer = setInterval(function () {
     init();
+    document.querySelectorAll('.widget-embed elevenlabs-convai').forEach(syncWidget);
     tries += 1;
-    if (tries > 80) clearInterval(timer);
+    if (tries > 40) clearInterval(timer);
   }, 250);
 })();
