@@ -2,18 +2,8 @@
   var COMPACT_HEIGHT = 176;
   var ACTIVE_HEIGHT = 380;
 
-  function isActiveState(widget) {
-    if (!widget.shadowRoot) return false;
-    return !!(
-      widget.shadowRoot.querySelector('div.sheet.flex') ||
-      widget.shadowRoot.querySelector('div[class*="pt-20"]') ||
-      widget.shadowRoot.querySelector('button[aria-label="End"]') ||
-      widget.shadowRoot.querySelector('button[aria-label="Hang up"]')
-    );
-  }
-
-  function alignWidget(widget) {
-    if (!widget.shadowRoot) return false;
+  function alignWidgetOnce(widget) {
+    if (!widget.shadowRoot || widget.dataset.aligned === 'true') return false;
 
     var overlay = widget.shadowRoot.querySelector('div[class*="overlay"]');
     if (!overlay) return false;
@@ -33,61 +23,52 @@
       sheet.style.setProperty('margin-right', 'auto', 'important');
     }
 
+    widget.dataset.aligned = 'true';
     return true;
   }
 
-  function resizeWidget(widget) {
+  function setHeight(widget, height) {
     var embed = widget.closest('.widget-embed');
-    if (!embed) return false;
+    if (!embed) return;
 
-    var height = isActiveState(widget) ? ACTIVE_HEIGHT : COMPACT_HEIGHT;
+    var key = String(height);
+    if (widget.dataset.currentHeight === key) return;
 
-    embed.style.height = height + 'px';
-    widget.style.setProperty('height', height + 'px', 'important');
-    widget.style.setProperty('min-height', height + 'px', 'important');
-
-    return true;
+    widget.dataset.currentHeight = key;
+    embed.style.height = key + 'px';
+    widget.style.setProperty('height', key + 'px', 'important');
+    widget.style.setProperty('min-height', key + 'px', 'important');
   }
 
-  function syncWidget(widget) {
-    if (!widget.shadowRoot) return;
-    alignWidget(widget);
-    resizeWidget(widget);
+  function waitForWidgetReady(widget, callback) {
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries += 1;
+      if (alignWidgetOnce(widget)) {
+        clearInterval(timer);
+        setHeight(widget, COMPACT_HEIGHT);
+        callback();
+        return;
+      }
+      if (tries > 50) clearInterval(timer);
+    }, 200);
   }
 
   function bind(widget) {
     if (!widget || widget.dataset.alignBound === 'true') return;
     widget.dataset.alignBound = 'true';
 
-    var scheduled = false;
-    var run = function () {
-      if (scheduled) return;
-      scheduled = true;
-      requestAnimationFrame(function () {
-        scheduled = false;
-        syncWidget(widget);
-      });
-    };
+    waitForWidgetReady(widget, function () {});
 
-    run();
-
-    new MutationObserver(run).observe(widget, {
-      childList: true,
-      subtree: true
+    widget.addEventListener('conversationStarted', function () {
+      window.setTimeout(function () {
+        setHeight(widget, ACTIVE_HEIGHT);
+      }, 500);
     });
 
-    var shadowTimer = setInterval(function () {
-      if (!widget.shadowRoot) return;
-      clearInterval(shadowTimer);
-      new MutationObserver(run).observe(widget.shadowRoot, {
-        childList: true,
-        subtree: true
-      });
-      run();
-    }, 100);
-
-    widget.addEventListener('conversationStarted', run);
-    widget.addEventListener('conversationEnded', run);
+    widget.addEventListener('conversationEnded', function () {
+      setHeight(widget, COMPACT_HEIGHT);
+    });
   }
 
   function init() {
@@ -101,12 +82,4 @@
   }
 
   window.addEventListener('load', init);
-
-  var tries = 0;
-  var timer = setInterval(function () {
-    init();
-    document.querySelectorAll('.widget-embed elevenlabs-convai').forEach(syncWidget);
-    tries += 1;
-    if (tries > 40) clearInterval(timer);
-  }, 250);
 })();
