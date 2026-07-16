@@ -272,8 +272,28 @@
       margin-bottom: 24px;
     }
     .widget-embed {
+      position: relative;
+      min-height: 480px;
       display: flex;
-      justify-content: flex-start;
+      align-items: stretch;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .widget-embed elevenlabs-convai {
+      position: relative !important;
+      inset: auto !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+      width: 100% !important;
+      max-width: 100%;
+      height: auto !important;
+      min-height: 460px;
+      z-index: 1 !important;
+      --elevenlabs-convai-widget-width: 100%;
+      --elevenlabs-convai-widget-height: 460px;
     }
 
     /* ─── STEPS ─── */
@@ -425,9 +445,8 @@
 
     /* ─── FOOTER ─── */
     footer {
-      position: sticky;
-      bottom: 0;
-      z-index: 100;
+      position: relative;
+      z-index: 1;
       padding: 14px 16px;
       background: rgba(6,17,26,0.92);
       backdrop-filter: blur(16px);
@@ -523,7 +542,7 @@
         <div class="widget-title">Hablá con el agente ahora</div>
         <p class="widget-sub">Demo en vivo — el agente está disponible para una conversación de prueba.</p>
         <div class="widget-embed">
-          <elevenlabs-convai agent-id="agent_2701kxecqh2gebs9fkqrfprp0yed"></elevenlabs-convai>
+          <elevenlabs-convai agent-id="agent_2701kxecqh2gebs9fkqrfprp0yed" variant="expanded"></elevenlabs-convai>
         </div>
       </div>
     </div>
