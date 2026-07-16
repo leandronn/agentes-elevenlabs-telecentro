@@ -186,8 +186,8 @@ header {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 36px 28px;
-  display: flex; flex-direction: column; gap: 20px;
+  padding: 28px 28px 24px;
+  display: flex; flex-direction: column; gap: 12px;
   max-width: 780px; margin: 0 auto;
   box-shadow: 0 4px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
 }
@@ -210,9 +210,8 @@ header {
 
 .widget-embed {
   position: relative;
-  min-height: 480px;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   overflow: visible;
 }
@@ -225,12 +224,12 @@ header {
   bottom: auto !important;
   left: auto !important;
   width: 100% !important;
-  max-width: 100%;
+  max-width: 420px;
   height: auto !important;
-  min-height: 460px;
+  min-height: 0 !important;
   z-index: 1 !important;
-  --elevenlabs-convai-widget-width: 100%;
-  --elevenlabs-convai-widget-height: 460px;
+  display: block;
+  margin: 0 auto;
 }
 
 elevenlabs-convai { width: 100%; }
@@ -492,7 +491,7 @@ footer {
       </div>
       <div class="widget-divider" aria-hidden="true"></div>
       <div class="widget-embed">
-        <elevenlabs-convai agent-id="agent_7601kxeppy1pf47vh97fq0fcw6dz" variant="expanded"></elevenlabs-convai>
+        <elevenlabs-convai agent-id="agent_7601kxeppy1pf47vh97fq0fcw6dz"></elevenlabs-convai>
       </div>
     </div>
   </section>
