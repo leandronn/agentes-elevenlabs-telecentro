@@ -209,8 +209,28 @@ header {
 }
 
 .widget-embed {
-  min-height: 80px;
-  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: visible;
+}
+
+.widget-embed elevenlabs-convai {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+  min-height: 460px;
+  z-index: 1 !important;
+  --elevenlabs-convai-widget-width: 100%;
+  --elevenlabs-convai-widget-height: 460px;
 }
 
 elevenlabs-convai { width: 100%; }
@@ -353,7 +373,8 @@ elevenlabs-convai { width: 100%; }
 
 /* ── FOOTER ── */
 footer {
-  position: sticky; bottom: 0; z-index: 100;
+  position: relative;
+  z-index: 1;
   padding: 14px 20px;
   border-top: 1px solid var(--border);
   background: rgba(6,17,26,0.90);
@@ -471,7 +492,7 @@ footer {
       </div>
       <div class="widget-divider" aria-hidden="true"></div>
       <div class="widget-embed">
-        <elevenlabs-convai agent-id="agent_7601kxeppy1pf47vh97fq0fcw6dz"></elevenlabs-convai>
+        <elevenlabs-convai agent-id="agent_7601kxeppy1pf47vh97fq0fcw6dz" variant="expanded"></elevenlabs-convai>
       </div>
     </div>
   </section>
