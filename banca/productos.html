@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agente de Asistencia al Viajero — Datial + ElevenLabs</title>
+<title>Agente de Productos Bancarios — Datial + ElevenLabs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -83,6 +83,7 @@ header {
   color: var(--text); text-decoration: none;
   letter-spacing: -0.01em;
 }
+.logo em { color: var(--accent); font-style: normal; }
 .logo svg { color: var(--accent); flex-shrink: 0; }
 
 .logo-11 {
@@ -267,6 +268,14 @@ header {
   color: var(--muted);
 }
 
+.step-code {
+  color: var(--accent);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.82em;
+  background: rgba(0,191,255,0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+
 /* ── USE CASES ── */
 .chips-section {
   position: relative; z-index: 1;
@@ -390,7 +399,7 @@ footer {
   .chips-section  { padding: 64px 48px; max-width: 1120px; margin: 0 auto; }
   .stats-section  { padding: 64px 48px 80px; max-width: 1120px; margin: 0 auto; }
 
-  .steps-grid { grid-template-columns: repeat(4, 1fr); }
+  .steps-grid { grid-template-columns: repeat(3, 1fr); }
 }
 </style>
 </head>
@@ -425,13 +434,13 @@ footer {
     <div class="hero-grid">
 
       <div class="hero-text">
-        <span class="hero-label">Agente de Voz · Asistencia al Viajero</span>
+        <span class="hero-label">Agente de Voz · Productos Bancarios</span>
 
-        <h1 class="hero-h1">Agente de <em>Asistencia al Viajero</em></h1>
+        <h1 class="hero-h1">Agente de <em>Productos</em></h1>
 
         <p class="hero-sub">
-          IA conversacional que coordina asistencia médica en viaje, evalúa el riesgo
-          y conecta al asegurado con el prestador más cercano — con empatía, paciencia y un cierre responsable.
+          IA conversacional que informa, asesora y guía a clientes en la adquisición
+          de tarjetas de crédito, préstamos personales y cuenta sueldo.
         </p>
 
       </div>
@@ -467,7 +476,7 @@ footer {
     </div>
   </section>
 
-  <!-- ── 8 PASOS ── -->
+  <!-- ── 6 PASOS ── -->
   <section class="steps-section" aria-label="Flujo del agente">
     <p class="section-label">Flujo de conversación</p>
     <h2 class="section-title">Cómo funciona el agente</h2>
@@ -475,50 +484,38 @@ footer {
 
       <article class="step-card" role="listitem">
         <span class="step-num" aria-hidden="true">01</span>
-        <h3 class="step-title">Contención</h3>
-        <p class="step-desc">Escucha con calma al asegurado y lo acompaña desde el primer contacto de la llamada.</p>
+        <h3 class="step-title">Inicio de contacto</h3>
+        <p class="step-desc">El agente saluda al cliente y se presenta como representante del banco de forma cálida y profesional.</p>
       </article>
 
       <article class="step-card" role="listitem">
         <span class="step-num" aria-hidden="true">02</span>
-        <h3 class="step-title">Urgencia</h3>
-        <p class="step-desc">Evalúa si existe riesgo vital o señales de alarma. Si detecta una emergencia, deriva al 112 y a asistencia humana; si no, continúa con el relevamiento guiado.</p>
+        <h3 class="step-title">Permiso para continuar</h3>
+        <p class="step-desc">Solicita disponibilidad del cliente para escuchar una propuesta breve sobre productos bancarios.</p>
       </article>
 
       <article class="step-card" role="listitem">
         <span class="step-num" aria-hidden="true">03</span>
-        <h3 class="step-title">Identificación</h3>
-        <p class="step-desc">Solicita el documento para confirmar la identidad del asegurado.</p>
+        <h3 class="step-title">Campaña asignada</h3>
+        <p class="step-desc">Lee la variable <span class="step-code">{{campaign}}</span> y se enfoca automáticamente en el producto correspondiente: TC, Préstamo o Sueldo.</p>
       </article>
 
       <article class="step-card" role="listitem">
         <span class="step-num" aria-hidden="true">04</span>
-        <h3 class="step-title">Póliza</h3>
-        <p class="step-desc">Verifica que el seguro de viaje esté vigente y confirma el destino del viaje.</p>
+        <h3 class="step-title">Oferta comercial</h3>
+        <p class="step-desc">Presenta los beneficios del producto asignado con lenguaje claro, destaca ventajas y comunica el costo en dólares.</p>
       </article>
 
       <article class="step-card" role="listitem">
         <span class="step-num" aria-hidden="true">05</span>
-        <h3 class="step-title">Ubicación y seguridad</h3>
-        <p class="step-desc">Registra la ciudad y dirección actual, y confirma que el asegurado se encuentra en un lugar seguro.</p>
+        <h3 class="step-title">Dudas y objeciones</h3>
+        <p class="step-desc">Responde preguntas frecuentes sobre tasas, requisitos y condiciones usando la base de conocimiento del producto.</p>
       </article>
 
       <article class="step-card" role="listitem">
         <span class="step-num" aria-hidden="true">06</span>
-        <h3 class="step-title">Situación y contacto</h3>
-        <p class="step-desc">Releva los síntomas generales, un teléfono de contacto y si el asegurado está acompañado.</p>
-      </article>
-
-      <article class="step-card" role="listitem">
-        <span class="step-num" aria-hidden="true">07</span>
-        <h3 class="step-title">Prestador y horario</h3>
-        <p class="step-desc">Coordina el centro médico más cercano, informa la dirección y el horario, y confirma la aceptación del asegurado.</p>
-      </article>
-
-      <article class="step-card" role="listitem">
-        <span class="step-num" aria-hidden="true">08</span>
-        <h3 class="step-title">Confirmación</h3>
-        <p class="step-desc">Repite un resumen de la coordinación, genera el número de asistencia y explica los próximos pasos.</p>
+        <h3 class="step-title">Intención y cierre</h3>
+        <p class="step-desc">Registra el interés del cliente, explica el siguiente paso y finaliza la llamada de forma ordenada.</p>
       </article>
 
     </div>
@@ -528,13 +525,13 @@ footer {
   <section class="chips-section" aria-label="Casos de uso">
     <p class="section-label">Cobertura</p>
     <h2 class="section-title">Casos de uso</h2>
-    <div class="chips-wrap" role="list" aria-label="Situaciones cubiertas">
-      <span class="chip" role="listitem">Consultas médicas en viaje</span>
-      <span class="chip" role="listitem">Urgencias y guardias</span>
-      <span class="chip" role="listitem">Traslados y ambulancia</span>
-      <span class="chip" role="listitem">Extravío de medicación</span>
-      <span class="chip" role="listitem">Odontología de urgencia</span>
-      <span class="chip" role="listitem">Emergencias con riesgo vital</span>
+    <div class="chips-wrap" role="list" aria-label="Productos cubiertos">
+      <span class="chip" role="listitem">Tarjeta de crédito</span>
+      <span class="chip" role="listitem">Préstamo personal</span>
+      <span class="chip" role="listitem">Cuenta sueldo</span>
+      <span class="chip" role="listitem">Simulación de cuotas</span>
+      <span class="chip" role="listitem">Refinanciación</span>
+      <span class="chip" role="listitem">Beneficios y promociones</span>
     </div>
   </section>
 
@@ -545,21 +542,21 @@ footer {
     <div class="stats-row" role="list">
 
       <div class="stat" role="listitem">
-        <p class="stat-value">24/7</p>
-        <p class="stat-label">Disponibilidad</p>
-        <p class="stat-desc">en cualquier destino</p>
+        <p class="stat-value">40%</p>
+        <p class="stat-label">Más conversiones</p>
+        <p class="stat-desc">vs campañas outbound tradicionales</p>
       </div>
 
       <div class="stat" role="listitem">
-        <p class="stat-value">8-10 min</p>
-        <p class="stat-label">Duración promedio</p>
-        <p class="stat-desc">de la coordinación</p>
+        <p class="stat-value">5 min</p>
+        <p class="stat-label">Tiempo promedio de cierre</p>
+        <p class="stat-desc">por producto ofrecido</p>
       </div>
 
       <div class="stat" role="listitem">
-        <p class="stat-value">1 llamada</p>
-        <p class="stat-label">Asistencia coordinada</p>
-        <p class="stat-desc">sin transferencias</p>
+        <p class="stat-value">3 productos</p>
+        <p class="stat-label">Cartera cubierta</p>
+        <p class="stat-desc">en una sola llamada</p>
       </div>
 
     </div>
@@ -569,13 +566,13 @@ footer {
 
 <!-- ── FOOTER ── -->
 <footer>
-  Datial + ElevenLabs &nbsp;·&nbsp; No diagnostica ni garantiza cobertura &nbsp;·&nbsp; Empatía, paciencia y cierre responsable
+  Datial + ElevenLabs &nbsp;·&nbsp; Moneda: dólares estadounidenses &nbsp;·&nbsp; No confirmar contratación sin canal oficial
 </footer>
 
 <!-- ElevenLabs widget (FAB default) -->
 <elevenlabs-convai
-  agent-id="agent_3801m0th7f4meknrk99y840xvgf9"
-  dynamic-variables='{"name":"Juan","full_name":"Juan Pérez","document":"12345678","policy_number":"AV-77410"}'
+  agent-id="agent_7601kxeppy1pf47vh97fq0fcw6dz"
+  dynamic-variables='{"product":"TARJETA","name":"Juan","fullName":"Juan Pérez"}'
 ></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 </body>
