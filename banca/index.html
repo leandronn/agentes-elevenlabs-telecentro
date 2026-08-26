@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IA Conversacional para Banca, Finanzas y Seguros — Datial + ElevenLabs</title>
+<title>IA Conversacional para Seguros — Datial + ElevenLabs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -55,17 +55,21 @@ header {
 }
 
 .logo-datial {
+  display: flex; align-items: center; gap: 8px;
   font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.3rem; font-weight: 800; color: var(--text);
   letter-spacing: -0.3px;
 }
 .logo-datial em { color: var(--accent); font-style: normal; }
+.logo-datial svg { flex-shrink: 0; color: var(--accent); }
 
 .logo-eleven {
+  display: flex; align-items: center; gap: 7px;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.9rem; font-weight: 600; color: var(--muted);
   letter-spacing: 0.2px;
 }
+.logo-eleven svg { flex-shrink: 0; color: var(--text); }
 .logo-eleven b { color: var(--text); font-weight: 700; }
 
 /* ── MAIN ── */
@@ -294,8 +298,14 @@ footer {
 
 <!-- ── HEADER ── -->
 <header>
-  <div class="logo-datial"><em>D</em>atial</div>
-  <div class="logo-eleven"><b>||</b>ElevenLabs</div>
+  <div class="logo-datial">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+    Datial
+  </div>
+  <div class="logo-eleven">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="4" width="5" height="16" rx="2"/><rect x="15" y="4" width="5" height="16" rx="2"/></svg>
+    ElevenLabs
+  </div>
 </header>
 
 <div class="main-wrap">
@@ -303,10 +313,10 @@ footer {
   <!-- ── HERO ── -->
   <section class="hero">
     <h1>
-      <span class="w">IA Conversacional para </span><br>
-      <span class="g">Banca</span><span class="w">, </span><span class="c">Finanzas</span><span class="w"> y </span><span class="g">Seguros</span>
+      <span class="w">IA Conversacional</span><br>
+      <span class="w">para </span><span class="g">Seguros</span>
     </h1>
-    <p>Agentes de voz con IA para transformar atención, ventas, cobranzas, retención y soporte.</p>
+    <p>Agentes de voz con IA para denuncia de siniestros, asistencia al viajero y cobranza de pólizas.</p>
     <div class="section-label">Conocé nuestros agentes</div>
   </section>
 
@@ -314,28 +324,30 @@ footer {
   <div class="cards-grid">
 
     <!-- ══════════════════════════════════
-         CARD 1 — COBRANZAS (verde)
+         CARD 1 — SINIESTROS (verde)
     ══════════════════════════════════ -->
-    <a class="agent-card card-green" href="/banca/cobranzas.html">
+    <a class="agent-card card-green" href="/banca/siniestros.html">
 
       <!-- Headline -->
       <div class="card-headline">
-        <span class="num">1. </span><span class="name-green">Cobranzas</span>
+        <span class="num">1. </span><span class="name-green">Siniestros</span>
       </div>
 
       <!-- Tag -->
-      <span class="card-tag tag-green">Cobranzas</span>
+      <span class="card-tag tag-green">Siniestros</span>
 
       <!-- Desc -->
-      <p class="card-desc">Gestiona la cobranza de deudas, negocia acuerdos, ofrece planes de pago y mejora la recuperación.</p>
+      <p class="card-desc">Recibe la denuncia inicial de siniestros automotor, detecta urgencias y deriva a un asesor cuando es necesario.</p>
 
       <!-- Visual: icon + robot -->
       <div class="card-visual">
         <div class="cat-icon icon-green">
-          <!-- Signo $ -->
+          <!-- Auto -->
           <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"/>
-            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+            <path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/>
+            <rect x="3" y="11" width="18" height="5" rx="2"/>
+            <circle cx="7.5" cy="18" r="1.5"/>
+            <circle cx="16.5" cy="18" r="1.5"/>
           </svg>
         </div>
         <div class="bot-badge bot-green">
@@ -354,19 +366,19 @@ footer {
       <ul class="card-bullets">
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Gestión de deudas
+          Denuncia de siniestros automotor
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Negociación de acuerdos
+          Detección de urgencias y derivación
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Planes de pago personalizados
+          Registro de daños y terceros
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Mejora de recuperación
+          Número de siniestro y seguimiento
         </li>
       </ul>
 
@@ -376,29 +388,28 @@ footer {
     </a>
 
     <!-- ══════════════════════════════════
-         CARD 2 — PRODUCTOS (cyan)
+         CARD 2 — ASISTENCIA AL VIAJERO (cyan)
     ══════════════════════════════════ -->
-    <a class="agent-card card-cyan" href="/banca/productos.html">
+    <a class="agent-card card-cyan" href="/banca/asistencia-viajero.html">
 
       <!-- Headline -->
       <div class="card-headline">
-        <span class="num">2. </span><span class="name-cyan">Productos</span>
+        <span class="num">2. </span><span class="name-cyan">Asistencia</span>
       </div>
 
       <!-- Tag -->
-      <span class="card-tag tag-cyan">Productos</span>
+      <span class="card-tag tag-cyan">Asistencia al Viajero</span>
 
       <!-- Desc -->
-      <p class="card-desc">Informa y asesora sobre tarjetas de crédito, préstamos y traer tu sueldo. Responde dudas y guía al cliente.</p>
+      <p class="card-desc">Coordina asistencia médica en viaje, evalúa el riesgo y conecta al asegurado con el prestador más cercano.</p>
 
       <!-- Visual: icon + robot -->
       <div class="card-visual">
         <div class="cat-icon icon-cyan">
-          <!-- Tarjeta de crédito -->
+          <!-- Pin de ubicación -->
           <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="4" width="22" height="16" rx="3"/>
-            <line x1="1" y1="10" x2="23" y2="10"/>
-            <line x1="5" y1="15" x2="9" y2="15"/>
+            <path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12z"/>
+            <circle cx="12" cy="10" r="2.5"/>
           </svg>
         </div>
         <div class="bot-badge bot-cyan">
@@ -417,19 +428,19 @@ footer {
       <ul class="card-bullets">
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Tarjetas de crédito
+          Asistencia médica en viaje
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Préstamos
+          Detección de emergencias
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Traer tu sueldo
+          Coordinación con prestadores
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Asesoramiento y guía al cliente
+          Confirmación de turno y ubicación
         </li>
       </ul>
 
@@ -439,28 +450,28 @@ footer {
     </a>
 
     <!-- ══════════════════════════════════
-         CARD 3 — SEGUROS (violeta)
+         CARD 3 — COBRANZAS (violeta)
     ══════════════════════════════════ -->
-    <a class="agent-card card-violet" href="/banca/seguros.html">
+    <a class="agent-card card-violet" href="/banca/cobranzas.html">
 
       <!-- Headline -->
       <div class="card-headline">
-        <span class="num">3. </span><span class="name-violet">Seguros</span>
+        <span class="num">3. </span><span class="name-violet">Cobranzas</span>
       </div>
 
       <!-- Tag -->
-      <span class="card-tag tag-violet">Venta de Seguros</span>
+      <span class="card-tag tag-violet">Cobranzas</span>
 
       <!-- Desc -->
-      <p class="card-desc">Protección de tarjetas y cuentas, cancelación de deudas (Seguro de Vida) y Protección de Ingresos.</p>
+      <p class="card-desc">Gestiona la regularización de pólizas en mora, valida al titular y ofrece alternativas de pago.</p>
 
       <!-- Visual: icon + robot -->
       <div class="card-visual">
         <div class="cat-icon icon-violet">
-          <!-- Escudo con check -->
+          <!-- Signo $ -->
           <svg viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <polyline points="9 12 11 14 15 10"/>
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
           </svg>
         </div>
         <div class="bot-badge bot-violet">
@@ -479,15 +490,19 @@ footer {
       <ul class="card-bullets">
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Protección de tarjetas y cuentas
+          Regularización de pólizas en mora
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Cancelación de deudas (Seguro de Vida)
+          Validación segura del titular
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Protección de Ingresos
+          Alternativas de pago y beneficios
+        </li>
+        <li>
+          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          Registro de gestión y cierre
         </li>
       </ul>
 
@@ -501,9 +516,15 @@ footer {
 
 <!-- ── FOOTER ── -->
 <footer>
-  <span class="ft-logo"><em>D</em>atial</span>
+  <span class="ft-logo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--accent); vertical-align: -3px; margin-right: 4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+    Datial
+  </span>
   <span class="ft-sep">+</span>
-  <span class="ft-11"><b>||</b>ElevenLabs</span>
+  <span class="ft-11">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color: var(--text); vertical-align: -2px; margin-right: 5px;"><rect x="4" y="4" width="5" height="16" rx="2"/><rect x="15" y="4" width="5" height="16" rx="2"/></svg>
+    <b>ElevenLabs</b>
+  </span>
 </footer>
 
 </body>
