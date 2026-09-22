@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agente de Atención al Afiliado · Datial Salud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #06111a;
+      --surface:  #0b1c28;
+      --border:   rgba(255,255,255,0.07);
+      --accent:   #00e5a0;
+      --text:     #eef2f7;
+      --muted:    #7a8fa3;
+      --accent-dim: rgba(0,229,160,0.10);
+      --accent-mid: rgba(0,229,160,0.22);
+      --accent-glow: rgba(0,229,160,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      top: -300px;
+      left: -300px;
+      background: radial-gradient(circle, rgba(0,229,160,0.055) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* decorative medical cross (left) */
+    .bg-cross {
+      position: fixed; left: -55px; top: 18%; width: 190px; height: 190px;
+      opacity: 0.045; pointer-events: none; z-index: 0; color: var(--accent);
+    }
+    /* decorative pulse line (right) */
+    .bg-pulse {
+      position: fixed; right: -30px; bottom: 10%; width: 220px; height: 90px;
+      opacity: 0.05; pointer-events: none; z-index: 0; color: var(--accent);
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: rgba(6,17,26,0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-mid);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+    .logo-text {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--accent-mid);
+      background: var(--accent-dim);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-btn:hover {
+      background: rgba(0,229,160,0.16);
+      border-color: rgba(0,229,160,0.38);
+    }
+    .back-btn svg { flex-shrink: 0; }
+
+    .eleven-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .eleven-label svg { flex-shrink: 0; color: var(--text); }
+
+    /* ─── MAIN ─── */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── HERO ─── */
+    .hero-grid {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 32px;
+      padding: 40px 16px;
+      max-width: 1180px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 6vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .hero-title .green { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 24px;
+    }
+
+    /* feature list under the description */
+    .hero-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 26px;
+    }
+    .hero-feature {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .hero-feature svg { flex-shrink: 0; color: var(--accent); }
+
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .hero-note {
+      position: absolute;
+      top: -18px; right: 4px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--accent);
+      opacity: 0.75;
+      transform: rotate(-4deg);
+    }
+    .bot-badge {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle, rgba(0,229,160,0.16) 0%, rgba(0,229,160,0.02) 68%, transparent 78%);
+      border: 1px solid rgba(0,229,160,0.28);
+    }
+    .bot-badge svg { width: 68px; height: 68px; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 40px 16px; }
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1.5px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.65rem, 3vw, 2.1rem);
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .section-sub {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 560px;
+      margin-bottom: 32px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── WIDGET SECTION ─── */
+    .widget-section {
+      position: relative;
+      z-index: 1;
+      padding: 32px 16px;
+    }
+
+    .inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .widget-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px 18px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .widget-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .widget-sub {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    /* ─── STEPS ─── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid rgba(0,229,160,0.45);
+      border-radius: 14px;
+      padding: 22px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: border-left-color 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .step-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 0%, rgba(0,229,160,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .step-card:hover {
+      border-left-color: var(--accent);
+      border-color: rgba(255,255,255,0.11);
+      transform: translateY(-2px);
+    }
+
+    .step-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .step-num {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      opacity: 0.88;
+    }
+    .step-icon {
+      width: 34px; height: 34px; flex-shrink: 0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,229,160,0.1);
+      border: 1px solid rgba(0,229,160,0.22);
+    }
+    .step-icon svg { width: 17px; height: 17px; color: var(--accent); }
+    .step-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .step-desc {
+      font-size: 0.865rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── CHIPS ─── */
+    .chips-section {
+      background: rgba(11,28,40,0.55);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(0,229,160,0.08);
+      border: 1px solid rgba(0,229,160,0.22);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.855rem;
+      font-weight: 500;
+      color: var(--accent);
+      transition: background 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .chip:hover {
+      background: rgba(0,229,160,0.14);
+      border-color: rgba(0,229,160,0.4);
+    }
+    .chip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    /* ─── CAPACIDADES / IMPACTO ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stats-row .stat:last-child {
+      grid-column: span 2;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(0,229,160,0.18));
+    }
+    .stat:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
+    .stat-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,229,160,0.1);
+      border: 1px solid rgba(0,229,160,0.22);
+      margin-bottom: 4px;
+    }
+    .stat-icon svg { width: 19px; height: 19px; color: var(--accent); }
+
+    .stat-value {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-top: 2px;
+    }
+    .stat-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 14px 16px;
+      background: rgba(6,17,26,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer strong { color: var(--accent); font-weight: 600; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (min-width: 768px) {
+      header { padding: 16px 48px; }
+      footer  { padding: 16px 48px; }
+
+      .hero-grid { padding: 48px 32px; }
+      section { padding: 56px 32px; }
+      .widget-card { padding: 40px 48px; }
+      .widget-section { padding: 48px 32px; }
+
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-row  { grid-template-columns: repeat(2, 1fr); }
+      .stats-row .stat:last-child { grid-column: span 2; }
+    }
+
+    @media (min-width: 1100px) {
+      .hero-grid {
+        flex-direction: row;
+        align-items: center;
+        padding: 64px 48px;
+        gap: 64px;
+      }
+      section { padding: 64px 48px; }
+      .widget-section { padding: 72px 56px; }
+
+      .steps-grid { grid-template-columns: repeat(4, 1fr); }
+      .stats-row  { grid-template-columns: repeat(3, 1fr); }
+      .stats-row .stat:last-child { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- decorative medical cross -->
+  <svg class="bg-cross" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M32 6v20M32 38v20M6 32h20M38 32h20" />
+  </svg>
+  <!-- decorative pulse line -->
+  <svg class="bg-pulse" viewBox="0 0 220 90" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="0 45 50 45 65 15 85 75 105 45 220 45" />
+  </svg>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <a href="/salud/index.html" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver
+    </a>
+
+    <a href="/salud/index.html" class="header-logo">
+      <div class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <span class="logo-text">Datial</span>
+    </a>
+
+    <span class="eleven-label">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="4" width="5" height="16" rx="2"/><rect x="15" y="4" width="5" height="16" rx="2"/></svg>
+      ElevenLabs
+    </span>
+  </header>
+
+  <!-- ═══ MAIN ═══ -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero-grid">
+
+      <!-- contenido -->
+      <div class="hero-content">
+        <div class="hero-label">Agente de Voz · Atención al Afiliado</div>
+        <h1 class="hero-title">Agente de <span class="green">Atención al Afiliado</span></h1>
+        <p class="hero-sub">IA conversacional que orienta consultas de cartilla médica, profesionales, centros de atención y farmacias, con una experiencia clara, ágil y natural.</p>
+        <div class="hero-features">
+          <span class="hero-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            Respuestas inmediatas
+          </span>
+          <span class="hero-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Información confiable
+          </span>
+          <span class="hero-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Experiencia simple y clara
+          </span>
+          <span class="hero-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Siempre disponible
+          </span>
+        </div>
+      </div>
+
+      <!-- visual -->
+      <div class="hero-visual">
+        <span class="hero-note">Tu salud, más cerca</span>
+        <div class="bot-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 8V4H8"/>
+            <rect width="16" height="12" x="4" y="8" rx="2"/>
+            <path d="M2 14h2"/>
+            <path d="M20 14h2"/>
+            <path d="M15 13v2"/>
+            <path d="M9 13v2"/>
+          </svg>
+        </div>
+      </div>
+
+    </div><!-- /hero-grid -->
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- WIDGET ELEVENLABS -->
+    <section class="widget-section" aria-label="Demo en vivo">
+      <div class="inner">
+        <div class="widget-card">
+          <div class="widget-title">Hablá con el agente ahora</div>
+          <p class="widget-sub">Usá el botón flotante en la esquina inferior derecha para iniciar una conversación de prueba.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- 8 PASOS -->
+    <section>
+      <div class="section-inner">
+        <div class="section-label">Flujo de interacción</div>
+        <h2 class="section-title">¿Cómo funciona el agente?</h2>
+        <p class="section-sub">Un flujo conversacional diseñado para orientar al afiliado y responder consultas de forma simple y contextual.</p>
+        <div class="steps-grid">
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">01</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Consulta inicial</div>
+            <p class="step-desc">El afiliado explica qué necesita con lenguaje natural.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">02</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Identificación</div>
+            <p class="step-desc">El agente detecta si la consulta es por cartilla, profesional, centro o farmacia.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">03</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Zona o localidad</div>
+            <p class="step-desc">Solicita la ubicación para orientar la búsqueda.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">04</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Búsqueda</div>
+            <p class="step-desc">Consulta la información disponible en cartilla.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">05</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Opciones</div>
+            <p class="step-desc">Presenta hasta tres alternativas relevantes.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">06</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Continuidad</div>
+            <p class="step-desc">Mantiene el contexto si el afiliado cambia o amplía la consulta.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">07</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Derivación</div>
+            <p class="step-desc">Si hace falta, orienta a un canal o asesor humano.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-num">08</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+            </div>
+            <div class="step-title">Cierre</div>
+            <p class="step-desc">Resume la información y ofrece continuar con otra búsqueda.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CASOS DE USO FRECUENTES -->
+    <section class="chips-section">
+      <div class="section-inner">
+        <div class="section-label">Casos de uso</div>
+        <h2 class="section-title">Consultas frecuentes</h2>
+        <p class="section-sub">El agente está preparado para resolver consultas habituales de atención al afiliado.</p>
+        <div class="chips-wrap">
+          <span class="chip"><span class="chip-dot"></span>Cartilla médica</span>
+          <span class="chip"><span class="chip-dot"></span>Búsqueda de profesionales</span>
+          <span class="chip"><span class="chip-dot"></span>Centros médicos</span>
+          <span class="chip"><span class="chip-dot"></span>Farmacias</span>
+          <span class="chip"><span class="chip-dot"></span>Especialidades</span>
+          <span class="chip"><span class="chip-dot"></span>Orientación al afiliado</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CAPACIDADES / IMPACTO -->
+    <section>
+      <div class="section-inner">
+        <div class="section-label">Capacidades</div>
+        <h2 class="section-title">Impacto esperado</h2>
+        <div class="stats-row">
+
+          <div class="stat">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">Disponibilidad</div>
+            <p class="stat-desc">Siempre disponible para tus afiliados.</p>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            </div>
+            <div class="stat-value">Voz + texto</div>
+            <div class="stat-label">Interacción natural</div>
+            <p class="stat-desc">Conversaciones fluidas y claras.</p>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+            </div>
+            <div class="stat-value">Contexto</div>
+            <div class="stat-label">Continuidad conversacional</div>
+            <p class="stat-desc">Mantiene el contexto en toda la interacción.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <strong>Datial</strong> + ElevenLabs &nbsp;·&nbsp; No brinda diagnóstico médico &nbsp;·&nbsp; La información debe validarse en canales oficiales
+  </footer>
+
+  <!-- ElevenLabs widget (FAB default) -->
+  <!-- TODO: reemplazar por el agent-id real cuando esté creado en ElevenLabs -->
+  <elevenlabs-convai
+    agent-id="REPLACE_WITH_AGENT_ID_SALUD_ATENCION_AFILIADO"
+    dynamic-variables='{"name":"Juan","full_name":"Juan Pérez","document":"12345678","member_id":"AF-2024-118"}'
+  ></elevenlabs-convai>
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+</body>
+</html>
