@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IA Conversacional para Seguros — Datial + ElevenLabs</title>
+<title>IA Conversacional para Salud — Datial + ElevenLabs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,8 +15,7 @@
   --bg-card:  #0b1c28;
   --border:   rgba(255,255,255,0.07);
   --accent:   #00e5a0;
-  --accent2:  #00bfff;
-  --accent3:  #c084fc;
+  --accent2:  #c084fc;
   --text:     #eef2f7;
   --muted:    #7a8fa3;
 }
@@ -37,9 +36,19 @@ body {
 .bg-glow {
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 10% 10%, rgba(0,229,160,0.055) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 45% at 90% 80%, rgba(0,191,255,0.045) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 35% at 55% 50%, rgba(192,132,252,0.025) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 50% at 10% 10%, rgba(0,229,160,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 45% at 90% 80%, rgba(192,132,252,0.045) 0%, transparent 70%);
+}
+
+/* Decorative medical cross (left) */
+.bg-cross {
+  position: fixed; left: -50px; top: 18%; width: 190px; height: 190px;
+  opacity: 0.05; pointer-events: none; z-index: 0; color: var(--accent);
+}
+/* Decorative pulse line (right) */
+.bg-pulse {
+  position: fixed; right: -30px; bottom: 12%; width: 220px; height: 90px;
+  opacity: 0.06; pointer-events: none; z-index: 0; color: var(--accent2);
 }
 
 /* ── HEADER ── */
@@ -56,6 +65,18 @@ header {
 
 .logo-datial-img { display: block; height: 22px; width: auto; }
 .logo-eleven-img { display: block; height: 15px; width: auto; opacity: 0.92; }
+
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--muted);
+  font-size: 0.85rem; font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.back-btn:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.14); color: var(--text); }
+.back-btn svg { flex-shrink: 0; }
 
 /* ── MAIN ── */
 .main-wrap { flex: 1; position: relative; z-index: 5; }
@@ -77,11 +98,10 @@ header {
 }
 .hero h1 .w { color: var(--text); }
 .hero h1 .g { color: var(--accent); }
-.hero h1 .c { color: var(--accent2); }
 
 .hero p {
   font-size: 1.05rem; color: var(--muted);
-  max-width: 520px; margin: 0 auto 48px;
+  max-width: 560px; margin: 0 auto 48px;
   line-height: 1.7;
 }
 
@@ -103,21 +123,17 @@ header {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
-  max-width: 1180px; margin: 0 auto;
+  max-width: 940px; margin: 0 auto;
   padding: 0 16px 48px;
   position: relative; z-index: 5;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 760px) {
   .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     padding: 0 40px 72px;
-    gap: 20px;
+    gap: 24px;
   }
-}
-
-@media (min-width: 1200px) {
-  .cards-grid { padding: 0 48px 80px; gap: 24px; }
 }
 
 /* ── AGENT CARD ── */
@@ -125,7 +141,7 @@ header {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 22px;
-  padding: 24px 22px 22px;
+  padding: 28px 26px 24px;
   display: flex; flex-direction: column;
   gap: 0;
   text-decoration: none; color: inherit;
@@ -142,28 +158,25 @@ header {
   pointer-events: none;
 }
 .card-green::after  { background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(0,229,160,0.09) 0%, transparent 70%); }
-.card-cyan::after   { background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(0,191,255,0.09) 0%, transparent 70%); }
 .card-violet::after { background: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(192,132,252,0.09) 0%, transparent 70%); }
 
 .agent-card:hover::after { opacity: 1; }
 .card-green:hover  { border-color: rgba(0,229,160,0.3);   transform: translateY(-6px); box-shadow: 0 32px 72px rgba(0,0,0,.6), 0 0 40px rgba(0,229,160,0.06); }
-.card-cyan:hover   { border-color: rgba(0,191,255,0.3);   transform: translateY(-6px); box-shadow: 0 32px 72px rgba(0,0,0,.6), 0 0 40px rgba(0,191,255,0.06); }
 .card-violet:hover { border-color: rgba(192,132,252,0.3); transform: translateY(-6px); box-shadow: 0 32px 72px rgba(0,0,0,.6), 0 0 40px rgba(192,132,252,0.06); }
 
 /* ── CARD HEADLINE: number + name ── */
 .card-headline {
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: clamp(2.2rem, 3.5vw, 2.9rem);
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
   font-weight: 800;
-  line-height: 1.0;
+  line-height: 1.08;
   letter-spacing: -0.5px;
-  min-height: 2em;
+  min-height: 2.16em;
   margin-bottom: 12px;
 }
 .card-headline .num  { color: var(--text); }
 .card-headline .name-green  { color: var(--accent); }
-.card-headline .name-cyan   { color: var(--accent2); }
-.card-headline .name-violet { color: var(--accent3); }
+.card-headline .name-violet { color: var(--accent2); }
 
 /* ── CARD TAG ── */
 .card-tag {
@@ -176,8 +189,7 @@ header {
   width: fit-content;
 }
 .card-tag.tag-green  { border: 1px solid rgba(0,229,160,0.25);   background: rgba(0,229,160,0.07);   color: var(--accent); }
-.card-tag.tag-cyan   { border: 1px solid rgba(0,191,255,0.25);   background: rgba(0,191,255,0.07);   color: var(--accent2); }
-.card-tag.tag-violet { border: 1px solid rgba(192,132,252,0.25); background: rgba(192,132,252,0.07); color: var(--accent3); }
+.card-tag.tag-violet { border: 1px solid rgba(192,132,252,0.25); background: rgba(192,132,252,0.07); color: var(--accent2); }
 
 /* ── CARD DESCRIPTION ── */
 .card-desc {
@@ -209,8 +221,55 @@ header {
 }
 .card-link:hover { gap: 10px; }
 .card-link.link-green  { color: var(--accent); }
-.card-link.link-cyan   { color: var(--accent2); }
-.card-link.link-violet { color: var(--accent3); }
+.card-link.link-violet { color: var(--accent2); }
+
+/* ── Q&A CTA ── */
+.qa-section {
+  max-width: 940px; margin: 0 auto;
+  padding: 0 16px 8px;
+  position: relative; z-index: 5;
+}
+@media (min-width: 760px) { .qa-section { padding: 0 40px 8px; } }
+
+.qa-button {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  width: 100%;
+  padding: 28px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(0,229,160,0.08), rgba(192,132,252,0.08));
+  text-decoration: none; color: var(--text);
+  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.qa-button:hover {
+  border-color: rgba(255,255,255,0.18);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 56px rgba(0,0,0,.5);
+}
+.qa-button-text {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-weight: 800; letter-spacing: -0.02em;
+}
+.qa-button-arrow { flex-shrink: 0; transition: transform .25s ease; }
+.qa-button:hover .qa-button-arrow { transform: translateX(6px); }
+
+/* ── TAGLINE ── */
+.tagline-section {
+  max-width: 1180px; margin: 0 auto;
+  padding: 0 48px 56px;
+  text-align: center;
+  position: relative; z-index: 5;
+}
+.tagline-divider {
+  width: 100%; max-width: 680px; margin: 0 auto 24px;
+  height: 1px; background: var(--border);
+}
+.tagline {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted);
+}
 
 /* ── FOOTER ── */
 footer {
@@ -234,7 +293,8 @@ footer {
   .hero { padding: 40px 16px 32px; }
   .hero h1 { font-size: clamp(2rem, 7.5vw, 3rem); letter-spacing: -0.8px; }
   .hero p { font-size: 0.95rem; margin-bottom: 36px; }
-  .card-headline { font-size: clamp(2rem, 8vw, 2.5rem); }
+  .card-headline { font-size: clamp(1.8rem, 8vw, 2.2rem); }
+  .tagline-section { padding: 0 16px 40px; }
 }
 </style>
 </head>
@@ -242,8 +302,23 @@ footer {
 
 <div class="bg-glow"></div>
 
+<!-- Decorative medical cross -->
+<svg class="bg-cross" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M32 6v20M32 38v20M6 32h20M38 32h20" />
+</svg>
+<!-- Decorative pulse line -->
+<svg class="bg-pulse" viewBox="0 0 220 90" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <polyline points="0 45 50 45 65 15 85 75 105 45 220 45" />
+</svg>
+
 <!-- ── HEADER ── -->
 <header>
+  <a href="/salud/index.html" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Volver
+  </a>
   <img class="logo-datial-img" src="logo-datial.png" alt="Datial">
   <img class="logo-eleven-img" src="logo-elevenlabs.png" alt="ElevenLabs">
 </header>
@@ -254,9 +329,9 @@ footer {
   <section class="hero">
     <h1>
       <span class="w">IA Conversacional</span><br>
-      <span class="w">para </span><span class="g">Seguros</span>
+      <span class="w">para </span><span class="g">Salud</span>
     </h1>
-    <p>Agentes de voz con IA para denuncia de siniestros, asistencia al viajero y cobranza de pólizas.</p>
+    <p>Agentes de voz con IA para atención al afiliado y cobranzas en el sector salud.</p>
     <div class="section-label">Conocé nuestros agentes</div>
   </section>
 
@@ -264,38 +339,38 @@ footer {
   <div class="cards-grid">
 
     <!-- ══════════════════════════════════
-         CARD 1 — SINIESTROS (verde)
+         CARD 1 — ATENCIÓN AL AFILIADO (verde/teal)
     ══════════════════════════════════ -->
-    <a class="agent-card card-green" href="/seguros/siniestros.html">
+    <a class="agent-card card-green" href="/salud/atencion-afiliado.html">
 
       <!-- Headline -->
       <div class="card-headline">
-        <span class="num">1. </span><span class="name-green">Siniestros</span>
+        <span class="num">1. </span><span class="name-green">Atención al Afiliado</span>
       </div>
 
       <!-- Tag -->
-      <span class="card-tag tag-green">Siniestros</span>
+      <span class="card-tag tag-green">Atención al Afiliado</span>
 
       <!-- Desc -->
-      <p class="card-desc">Recibe la denuncia inicial de siniestros automotor, detecta urgencias y deriva a un asesor cuando es necesario.</p>
+      <p class="card-desc">Orienta consultas de cartilla, profesionales, centros médicos y farmacias, manteniendo el contexto de la conversación.</p>
 
       <!-- Bullets -->
       <ul class="card-bullets">
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Denuncia de siniestros automotor
+          Consulta de cartilla médica
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Detección de urgencias y derivación
+          Búsqueda de profesionales
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Registro de daños y terceros
+          Farmacias y centros médicos
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Número de siniestro y seguimiento
+          Continuidad conversacional
         </li>
       </ul>
 
@@ -305,67 +380,26 @@ footer {
     </a>
 
     <!-- ══════════════════════════════════
-         CARD 2 — ASISTENCIA AL VIAJERO (cyan)
+         CARD 2 — COBRANZAS (violeta)
     ══════════════════════════════════ -->
-    <a class="agent-card card-cyan" href="/seguros/asistencia-viajero.html">
+    <a class="agent-card card-violet" href="/salud/cobranzas.html">
 
       <!-- Headline -->
       <div class="card-headline">
-        <span class="num">2. </span><span class="name-cyan">Asistencia</span>
-      </div>
-
-      <!-- Tag -->
-      <span class="card-tag tag-cyan">Asistencia al Viajero</span>
-
-      <!-- Desc -->
-      <p class="card-desc">Coordina asistencia médica en viaje, evalúa el riesgo y conecta al asegurado con el prestador más cercano.</p>
-
-      <!-- Bullets -->
-      <ul class="card-bullets">
-        <li>
-          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Asistencia médica en viaje
-        </li>
-        <li>
-          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Detección de emergencias
-        </li>
-        <li>
-          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Coordinación con prestadores
-        </li>
-        <li>
-          <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Confirmación de turno y ubicación
-        </li>
-      </ul>
-
-      <!-- Ver más -->
-      <span class="card-link link-cyan">Ver más →</span>
-
-    </a>
-
-    <!-- ══════════════════════════════════
-         CARD 3 — COBRANZAS (violeta)
-    ══════════════════════════════════ -->
-    <a class="agent-card card-violet" href="/seguros/cobranzas.html">
-
-      <!-- Headline -->
-      <div class="card-headline">
-        <span class="num">3. </span><span class="name-violet">Cobranzas</span>
+        <span class="num">2. </span><span class="name-violet">Cobranzas</span>
       </div>
 
       <!-- Tag -->
       <span class="card-tag tag-violet">Cobranzas</span>
 
       <!-- Desc -->
-      <p class="card-desc">Gestiona la regularización de pólizas en mora, valida al titular y ofrece alternativas de pago.</p>
+      <p class="card-desc">Gestiona consultas de deuda, vencimientos y alternativas de regularización mediante una conversación natural.</p>
 
       <!-- Bullets -->
       <ul class="card-bullets">
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Regularización de pólizas en mora
+          Consulta de deuda y vencimientos
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
@@ -373,7 +407,7 @@ footer {
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
-          Alternativas de pago y beneficios
+          Opciones y compromisos de pago
         </li>
         <li>
           <svg class="check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.9)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
@@ -387,6 +421,21 @@ footer {
     </a>
 
   </div>
+
+  <!-- ── Q&A CTA ── -->
+  <div class="qa-section">
+    <a class="qa-button" href="/salud/qa.html">
+      <span class="qa-button-text">Q&amp;A</span>
+      <svg class="qa-button-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+  <!-- ── TAGLINE ── -->
+  <div class="tagline-section">
+    <div class="tagline-divider"></div>
+    <div class="tagline">Tecnología que cuida a las personas</div>
+  </div>
+
 </div>
 
 <!-- ── FOOTER ── -->

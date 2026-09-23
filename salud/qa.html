@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preguntas &amp; Cierre · Datial Salud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #06111a;
+      --surface:  #0b1c28;
+      --border:   rgba(255,255,255,0.07);
+      --accent:   #00e5a0;
+      --accent2:  #c084fc;
+      --text:     #eef2f7;
+      --muted:    #7a8fa3;
+      --accent-dim: rgba(0,229,160,0.10);
+      --accent-mid: rgba(0,229,160,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      top: -300px;
+      left: -300px;
+      background: radial-gradient(circle, rgba(0,229,160,0.05) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      width: 700px;
+      height: 700px;
+      bottom: -280px;
+      right: -280px;
+      background: radial-gradient(circle, rgba(192,132,252,0.05) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: rgba(6,17,26,0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--text); }
+    .header-logo-img { display: block; height: 20px; width: auto; }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: none; color: var(--accent);
+      font-size: 0.875rem; font-weight: 600;
+      padding: 7px 14px; border-radius: 8px;
+      border: 1px solid var(--accent-mid);
+      background: var(--accent-dim);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-btn:hover { background: rgba(0,229,160,0.16); border-color: rgba(0,229,160,0.38); }
+    .back-btn svg { flex-shrink: 0; }
+    .eleven-label { display: flex; align-items: center; gap: 6px; }
+    .eleven-label-img { display: block; height: 14px; width: auto; opacity: 0.92; }
+
+    /* ─── MAIN ─── */
+    main { flex: 1; position: relative; z-index: 1; }
+
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 16px;
+    }
+
+    .section-label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--accent);
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 14px;
+    }
+    .section-label::before { content: ''; display: block; width: 16px; height: 1.5px; background: var(--accent); border-radius: 2px; }
+
+    .section-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.7rem, 4vw, 2.3rem);
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .divider { width: 100%; height: 1px; background: var(--border); }
+
+    /* ─── QA CONTENT ─── */
+    .qa-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding: 56px 0 24px;
+    }
+
+    .qa-thanks-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .qa-thanks-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .qa-contact-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .qa-qr {
+      width: 148px; height: 148px;
+      border-radius: 14px;
+      background: #ffffff;
+      display: flex; align-items: center; justify-content: center;
+      padding: 10px;
+    }
+    .qa-qr img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+    .qa-contact-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .qa-contact-name {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+    .qa-contact-role {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 14px 16px;
+      background: rgba(6,17,26,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer .ft-logo-img { height: 13px; width: auto; vertical-align: -2px; }
+    footer .ft-eleven-img { height: 10px; width: auto; vertical-align: -1px; opacity: 0.9; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (min-width: 768px) {
+      header { padding: 16px 48px; }
+      footer  { padding: 16px 48px; }
+      .section-inner { padding: 64px 32px; }
+      .qa-grid { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 64px; padding: 72px 0 32px; }
+      .qa-thanks { max-width: 560px; }
+    }
+
+    @media (min-width: 1100px) {
+      header { padding: 16px 48px; }
+      .section-inner { padding: 80px 48px; max-width: 1120px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header>
+    <a href="/salud/agentes.html" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver
+    </a>
+
+    <a href="/salud/agentes.html" class="header-logo">
+      <img class="header-logo-img" src="logo-datial.png" alt="Datial">
+    </a>
+
+    <span class="eleven-label">
+      <img class="eleven-label-img" src="logo-elevenlabs.png" alt="ElevenLabs">
+    </span>
+  </header>
+
+  <!-- ═══ MAIN ═══ -->
+  <main>
+    <div class="section-inner">
+      <div class="section-label">Cierre del evento</div>
+      <h1 class="section-title">Preguntas &amp; Cierre · Q&amp;A</h1>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-inner">
+      <div class="qa-grid">
+
+        <div class="qa-thanks">
+          <div class="qa-thanks-title">¡Gracias por su tiempo!</div>
+          <p class="qa-thanks-sub">¿Dudas, preguntas?</p>
+        </div>
+
+        <div class="qa-contact-card">
+          <div class="qa-qr"><img src="qr-code.png" alt="Código QR de contacto"></div>
+          <div>
+            <div class="qa-contact-label">Contacto comercial</div>
+            <div class="qa-contact-name">Florencia Trotta</div>
+            <div class="qa-contact-role">Account Executive</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <img class="ft-logo-img" src="logo-datial.png" alt="Datial"> + <img class="ft-eleven-img" src="logo-elevenlabs.png" alt="ElevenLabs"> &nbsp;·&nbsp; Gracias por acompañarnos
+  </footer>
+
+</body>
+</html>
