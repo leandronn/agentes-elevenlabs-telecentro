@@ -54,23 +54,8 @@ header {
   flex-shrink: 0;
 }
 
-.logo-datial {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 1.3rem; font-weight: 800; color: var(--text);
-  letter-spacing: -0.3px;
-}
-.logo-datial em { color: var(--accent); font-style: normal; }
-.logo-datial svg { flex-shrink: 0; color: var(--accent); }
-
-.logo-eleven {
-  display: flex; align-items: center; gap: 7px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem; font-weight: 600; color: var(--muted);
-  letter-spacing: 0.2px;
-}
-.logo-eleven svg { flex-shrink: 0; color: var(--text); }
-.logo-eleven b { color: var(--text); font-weight: 700; }
+.logo-datial-img { display: block; height: 22px; width: auto; }
+.logo-eleven-img { display: block; height: 15px; width: auto; opacity: 0.92; }
 
 /* ── MAIN ── */
 .main-wrap { flex: 1; position: relative; z-index: 5; }
@@ -172,6 +157,7 @@ header {
   font-weight: 800;
   line-height: 1.0;
   letter-spacing: -0.5px;
+  min-height: 2em;
   margin-bottom: 12px;
 }
 .card-headline .num  { color: var(--text); }
@@ -198,38 +184,6 @@ header {
   font-size: 0.88rem; color: var(--muted);
   line-height: 1.68; margin-bottom: 20px;
 }
-
-/* ── CARD VISUAL: icon + bot badge ── */
-.card-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-  margin: 4px 0 22px;
-}
-
-.cat-icon {
-  width: 64px; height: 64px; flex-shrink: 0;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.cat-icon.icon-green  { background: rgba(0,229,160,0.1);   border: 1px solid rgba(0,229,160,0.2); }
-.cat-icon.icon-cyan   { background: rgba(0,191,255,0.1);   border: 1px solid rgba(0,191,255,0.2); }
-.cat-icon.icon-violet { background: rgba(192,132,252,0.1); border: 1px solid rgba(192,132,252,0.2); }
-
-.cat-icon svg { width: 28px; height: 28px; }
-
-/* ── BOT BADGE (agente IA) ── */
-.bot-badge {
-  width: 92px; height: 92px; flex-shrink: 0;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-}
-.bot-badge.bot-green  { background: radial-gradient(circle, rgba(0,229,160,0.16) 0%, rgba(0,229,160,0.02) 68%, transparent 78%); border: 1px solid rgba(0,229,160,0.28); }
-.bot-badge.bot-cyan   { background: radial-gradient(circle, rgba(0,191,255,0.16) 0%, rgba(0,191,255,0.02) 68%, transparent 78%); border: 1px solid rgba(0,191,255,0.28); }
-.bot-badge.bot-violet { background: radial-gradient(circle, rgba(192,132,252,0.16) 0%, rgba(192,132,252,0.02) 68%, transparent 78%); border: 1px solid rgba(192,132,252,0.28); }
-.bot-badge svg { width: 44px; height: 44px; }
 
 /* ── CARD BULLETS ── */
 .card-bullets {
@@ -269,17 +223,9 @@ footer {
   -webkit-backdrop-filter: blur(20px);
   flex-shrink: 0;
 }
-.ft-logo {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 1rem; font-weight: 800; color: var(--text);
-}
-.ft-logo em { color: var(--accent); font-style: normal; }
+.ft-logo-img { display: block; height: 18px; width: auto; }
 .ft-sep { color: var(--muted); font-size: 0.9rem; }
-.ft-11 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.85rem; font-weight: 600; color: var(--muted);
-}
-.ft-11 b { color: var(--text); }
+.ft-eleven-img { display: block; height: 13px; width: auto; opacity: 0.92; }
 
 /* ── RESPONSIVE OVERRIDES ── */
 @media (max-width: 899px) {
@@ -298,14 +244,8 @@ footer {
 
 <!-- ── HEADER ── -->
 <header>
-  <div class="logo-datial">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-    Datial
-  </div>
-  <div class="logo-eleven">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="4" y="4" width="5" height="16" rx="2"/><rect x="15" y="4" width="5" height="16" rx="2"/></svg>
-    ElevenLabs
-  </div>
+  <img class="logo-datial-img" src="logo-datial.png" alt="Datial">
+  <img class="logo-eleven-img" src="logo-elevenlabs.png" alt="ElevenLabs">
 </header>
 
 <div class="main-wrap">
@@ -338,27 +278,6 @@ footer {
 
       <!-- Desc -->
       <p class="card-desc">Gestiona la cobranza de deudas, negocia acuerdos, ofrece planes de pago y mejora la recuperación.</p>
-
-      <!-- Visual: icon + robot -->
-      <div class="card-visual">
-        <div class="cat-icon icon-green">
-          <!-- Signo $ -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,229,160,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"/>
-            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-          </svg>
-        </div>
-        <div class="bot-badge bot-green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 8V4H8"/>
-            <rect width="16" height="12" x="4" y="8" rx="2"/>
-            <path d="M2 14h2"/>
-            <path d="M20 14h2"/>
-            <path d="M15 13v2"/>
-            <path d="M9 13v2"/>
-          </svg>
-        </div>
-      </div>
 
       <!-- Bullets -->
       <ul class="card-bullets">
@@ -401,28 +320,6 @@ footer {
       <!-- Desc -->
       <p class="card-desc">Informa y asesora sobre tarjetas de crédito, préstamos y traer tu sueldo. Responde dudas y guía al cliente.</p>
 
-      <!-- Visual: icon + robot -->
-      <div class="card-visual">
-        <div class="cat-icon icon-cyan">
-          <!-- Tarjeta de crédito -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,191,255,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="4" width="22" height="16" rx="3"/>
-            <line x1="1" y1="10" x2="23" y2="10"/>
-            <line x1="5" y1="15" x2="9" y2="15"/>
-          </svg>
-        </div>
-        <div class="bot-badge bot-cyan">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 8V4H8"/>
-            <rect width="16" height="12" x="4" y="8" rx="2"/>
-            <path d="M2 14h2"/>
-            <path d="M20 14h2"/>
-            <path d="M15 13v2"/>
-            <path d="M9 13v2"/>
-          </svg>
-        </div>
-      </div>
-
       <!-- Bullets -->
       <ul class="card-bullets">
         <li>
@@ -464,27 +361,6 @@ footer {
       <!-- Desc -->
       <p class="card-desc">Protección de tarjetas y cuentas, cancelación de deudas (Seguro de Vida) y Protección de Ingresos.</p>
 
-      <!-- Visual: icon + robot -->
-      <div class="card-visual">
-        <div class="cat-icon icon-violet">
-          <!-- Escudo con check -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(192,132,252,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <polyline points="9 12 11 14 15 10"/>
-          </svg>
-        </div>
-        <div class="bot-badge bot-violet">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 8V4H8"/>
-            <rect width="16" height="12" x="4" y="8" rx="2"/>
-            <path d="M2 14h2"/>
-            <path d="M20 14h2"/>
-            <path d="M15 13v2"/>
-            <path d="M9 13v2"/>
-          </svg>
-        </div>
-      </div>
-
       <!-- Bullets -->
       <ul class="card-bullets">
         <li>
@@ -511,15 +387,9 @@ footer {
 
 <!-- ── FOOTER ── -->
 <footer>
-  <span class="ft-logo">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--accent); vertical-align: -3px; margin-right: 4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-    Datial
-  </span>
+  <img class="ft-logo-img" src="logo-datial.png" alt="Datial">
   <span class="ft-sep">+</span>
-  <span class="ft-11">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="color: var(--text); vertical-align: -2px; margin-right: 5px;"><rect x="4" y="4" width="5" height="16" rx="2"/><rect x="15" y="4" width="5" height="16" rx="2"/></svg>
-    <b>ElevenLabs</b>
-  </span>
+  <img class="ft-eleven-img" src="logo-elevenlabs.png" alt="ElevenLabs">
 </footer>
 
 </body>
